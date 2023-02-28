@@ -367,7 +367,7 @@ class videoSystemController {
     }
 
     onClickProductionForm = () => {
-        this.#videoSystemView.productionForm();
+        this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList,this.#videoSystemModel.Actors,this.#videoSystemModel.Directors);
     }
 }
 

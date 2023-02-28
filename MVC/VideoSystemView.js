@@ -148,7 +148,6 @@ class videoSystemView {
      */
     showCategoriesProductions(category, name) {
 
-        let arrayProductions = [];
 
         if (document.getElementById("div-categories")) this.main.removeChild(document.getElementById("div-categories"));
         if (document.getElementById("div-Contents")) this.main.removeChild(document.getElementById("div-Contents"));
@@ -166,19 +165,16 @@ class videoSystemView {
 
         productionsContainer.appendChild(productionsRow);
 
-        for (let production of category) {
-            arrayProductions.push(production);
-        }
 
-        for (let i = 0; i < arrayProductions.length; i++) {
+        for (let production of category) {
             let productionsColumn = document.createElement("div");
             productionsColumn.classList.add("col");
             productionsColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem;  margin-top:2rem;">
-            <img src='./media/producciones/${arrayProductions[i].Image}' class="card-img-top" alt="${arrayProductions[i].Image}" width=250 height=150>
+            <img src='./media/producciones/${production.Image}' class="card-img-top" alt="${production.Image}" width=250 height=150>
             <div class="card-body">
-              <h5 class="card-title">${arrayProductions[i].Title}</h5>
-              <a href="#ProductionCard" class="btn btn-primary production-btn" data-production='${arrayProductions[i].Title}'>Ver</a>
-              <button class="btn btn-primary production-btn-window" data-production='${arrayProductions[i].Title}'>Ventana</button>
+              <h5 class="card-title">${production.Title}</h5>
+              <a href="#ProductionCard" class="btn btn-primary production-btn" data-production='${production.Title}'>Ver</a>
+              <button class="btn btn-primary production-btn-window" data-production='${production.Title}'>Ventana</button>
             </div>
           </div>`
             productionsRow.appendChild(productionsColumn);
@@ -192,7 +188,6 @@ class videoSystemView {
      */
     showProductions(productionList, type) {
 
-        let arrayProductions = [];
 
         if (document.getElementById("div-categories")) this.main.removeChild(document.getElementById("div-categories"));
         if (document.getElementById("div-Contents")) this.main.removeChild(document.getElementById("div-Contents"));
@@ -211,18 +206,14 @@ class videoSystemView {
         productionContainer.appendChild(productionRow);
 
         for (let production of productionList) {
-            arrayProductions.push(production);
-        }
-
-        for (let i = 0; i < arrayProductions.length; i++) {
             let productionColumn = document.createElement("div");
             productionColumn.classList.add("col");
             productionColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem;  margin-top:2rem;">
-            <img src='./media/producciones/${arrayProductions[i].Image}' class="card-img-top" alt="${arrayProductions[i].Image}" width=250 height=150/>
+            <img src='./media/producciones/${production.Image}' class="card-img-top" alt="${production.Image}" width=250 height=150/>
             <div class="card-body">
-              <h5 class="card-title">${arrayProductions[i].Title}</h5>
-              <a href="#ProductionCard" class="btn btn-primary production-btn" data-production='${arrayProductions[i].Title}'>Ver</a>
-              <button class="btn btn-primary production-btn-window" data-production='${arrayProductions[i].Title}'>Ventana</button>
+              <h5 class="card-title">${production.Title}</h5>
+              <a href="#ProductionCard" class="btn btn-primary production-btn" data-production='${production.Title}'>Ver</a>
+              <button class="btn btn-primary production-btn-window" data-production='${production.Title}'>Ventana</button>
             </div>
           </div>`
             productionRow.appendChild(productionColumn);
@@ -235,8 +226,6 @@ class videoSystemView {
      * @param {String} type 
      */
     showPersonsList(personList, type) {
-
-        let arrayPerson = [];
 
         if (document.getElementById("div-categories")) this.main.removeChild(document.getElementById("div-categories"));
         if (document.getElementById("div-Contents")) this.main.removeChild(document.getElementById("div-Contents"));
@@ -255,18 +244,14 @@ class videoSystemView {
         personContainer.appendChild(personRow);
 
         for (let person of personList) {
-            arrayPerson.push(person);
-        }
-
-        for (let i = 0; i < arrayPerson.length; i++) {
             let personColumn = document.createElement("div");
             personColumn.classList.add("col");
             personColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem; margin-top:2rem;">
-            <img src='./media/personas/${arrayPerson[i].Picture}' class="card-img-top" alt="${arrayPerson[i].Picture}" width=250 height=250/>
+            <img src='./media/personas/${person.Picture}' class="card-img-top" alt="${person.Picture}" width=250 height=250/>
             <div class="card-body">
-            <h5 class="card-title"><p>${type}</p>${arrayPerson[i].Name} ${arrayPerson[i].FirstLastName}</h5>
-            <a href="#${type}card" class="btn btn-primary person-${type}" data-person='${arrayPerson[i].Picture}'>Conocer</a>
-            <button class="btn btn-primary person-${type}-window" data-person='${arrayPerson[i].Picture}'>Ventana</button>
+            <h5 class="card-title"><p>${type}</p>${person.Name} ${person.FirstLastName}</h5>
+            <a href="#${type}card" class="btn btn-primary person-${type}" data-person='${person.Picture}'>Conocer</a>
+            <button class="btn btn-primary person-${type}-window" data-person='${person.Picture}'>Ventana</button>
             </div>
           </div>`
             personRow.appendChild(personColumn);
@@ -283,7 +268,6 @@ class videoSystemView {
         if (document.getElementById("div-Contents")) this.main.removeChild(document.getElementById("div-Contents"));
 
         let personContainer = document.createElement("div");
-        let arrayProductions = [];
         // Le añadimos una clase (container)
         personContainer.classList.add("container");
         personContainer.classList.add("text-center");
@@ -304,9 +288,6 @@ class videoSystemView {
         productionContainer.classList.add("text-center");
         productionContainer.classList.add("col");
 
-        for (let production of productionsList) {
-            arrayProductions.push(production);
-        }
 
         productionContainer.innerHTML = `<h4>${person.Name} ${person.FirstLastName}</h4>
         <h2>${person.Born.toISOString().split("T")[0]}</h2>
@@ -321,19 +302,20 @@ class videoSystemView {
         productionsRow.innerHTML = "<h2>Producciones</h2>";
         productionContainer.appendChild(productionsRow);
 
-        for (let i = 0; i < arrayProductions.length; i++) {
+        for (let production of productionsList) {
             let productionsColumn = document.createElement("div");
             productionsColumn.classList.add("col");
             productionsColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem; margin-top:2rem;">
-            <img src='./media/producciones/${arrayProductions[i].Image}' class="card-img-top" alt="${arrayProductions[i].Image}" width=250 height=150/>
+            <img src='./media/producciones/${production.Image}' class="card-img-top" alt="${production.Image}" width=250 height=150/>
             <div class="card-body">
-              <h5 class="card-title">${arrayProductions[i].Title}</h5>
-              <a href="#ProductionCard" class="btn btn-primary production-btn" data-production='${arrayProductions[i].Title}'>Ver</a>
-              <button class="btn btn-primary production-btn-window" data-production='${arrayProductions[i].Title}'>Ventana</button>
+              <h5 class="card-title">${production.Title}</h5>
+              <a href="#ProductionCard" class="btn btn-primary production-btn" data-production='${production.Title}'>Ver</a>
+              <button class="btn btn-primary production-btn-window" data-production='${production.Title}'>Ventana</button>
             </div>
           </div>`
             productionsRow.appendChild(productionsColumn);
         }
+
 
 
     }
@@ -349,7 +331,6 @@ class videoSystemView {
         if (window.document.getElementById("div-Contents")) main.removeChild(window.document.getElementById("div-Contents"));
 
         let personContainer = window.document.createElement("div");
-        let arrayProductions = [];
         // Le añadimos una clase (container)
         personContainer.classList.add("container");
         personContainer.classList.add("text-center");
@@ -370,10 +351,6 @@ class videoSystemView {
         productionContainer.classList.add("text-center");
         productionContainer.classList.add("col");
 
-        for (let production of productionsList) {
-            arrayProductions.push(production);
-        }
-
         productionContainer.innerHTML = `<h4>${person.Name} ${person.FirstLastName}</h4>
         <h2>${person.Born.toISOString().split("T")[0]}</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean aliquam tempor tempor. Vivamus libero mi, cursus id ullamcorper vitae, commodo nec erat. Proin iaculis odio sit amet quam aliquet, et rhoncus mi dignissim. Vestibulum sed justo nec diam mollis finibus elementum et felis. Sed lobortis risus ac tellus auctor ullamcorper.</p>`;
@@ -387,18 +364,16 @@ class videoSystemView {
         productionsRow.innerHTML = "<h2>Producciones</h2>";
         productionContainer.appendChild(productionsRow);
 
-        for (let i = 0; i < arrayProductions.length; i++) {
+        for (let production of productionsList) {
             let productionsColumn = window.document.createElement("div");
             productionsColumn.classList.add("col");
             productionsColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem; margin-top:2rem;">
-            <img src='./media/producciones/${arrayProductions[i].Image}' class="card-img-top" alt="${arrayProductions[i].Image}" width=250 height=150/>
+            <img src='./media/producciones/${production.Image}' class="card-img-top" alt="${production.Image}" width=250 height=150/>
             <div class="card-body">
-              <h5 class="card-title">${arrayProductions[i].Title}</h5>
+              <h5 class="card-title">${production.Title}</h5>
               </div>
               </div>`
-            //   <a href="#ProductionCard" class="btn btn-primary production-btn" data-production='${arrayProductions[i].Title}'>Ver</a>
-            //   <a href="#ProductionCard" class="btn btn-primary production-btn-window" data-production='${arrayProductions[i].Title}'>Ventana</a>
-            productionsRow.appendChild(productionsColumn);
+           productionsRow.appendChild(productionsColumn);
         }
 
         this.windows.set(person.Picture, window);
@@ -415,8 +390,6 @@ class videoSystemView {
         if (document.getElementById("div-Contents")) this.main.removeChild(document.getElementById("div-Contents"));
 
         let productionContainer = document.createElement("div");
-        let arrayActors = [];
-        let arrayDirectors = [];
         // Le añadimos una clase (container)
         productionContainer.classList.add("container");
         productionContainer.classList.add("text-center");
@@ -442,41 +415,34 @@ class videoSystemView {
 
         productionContainer.appendChild(productionInfoContainer);
 
-        for (let actor of actors) {
-            arrayActors.push(actor.actor);
-        }
-
-        for (let director of directors) {
-            arrayDirectors.push(director.director);
-        }
 
         let CastRow = document.createElement("div");
         CastRow.classList.add("row");
         CastRow.innerHTML = "<h2>Reparto</h2>";
         productionInfoContainer.appendChild(CastRow);
 
-        for (let i = 0; i < arrayActors.length; i++) {
+        for (let actor of actors) {
             let actorsColumn = document.createElement("div");
             actorsColumn.classList.add("col");
             actorsColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem; margin-top:2rem;">
-            <img src='./media/personas/${arrayActors[i].Picture}' class="card-img-top" alt="${arrayActors[i].Picture}" width=200 height=200/>
+            <img src='./media/personas/${actor.actor.Picture}' class="card-img-top" alt="${actor.actor.Picture}" width=200 height=200/>
             <div class="card-body">
-              <h5 class="card-title"><p>Actor</p>${arrayActors[i].Name} ${arrayActors[i].FirstLastName}</h5>
-              <a href="#ActoresCard" class="btn btn-primary person-Actores" data-person='${arrayActors[i].Picture}'>Conocer</a>
-              <button class="btn btn-primary person-Actores-window" data-person='${arrayActors[i].Picture}'>Ventana</button>
+              <h5 class="card-title"><p>Actor</p>${actor.actor.Name} ${actor.actor.FirstLastName}</h5>
+              <a href="#ActoresCard" class="btn btn-primary person-Actores" data-person='${actor.actor.Picture}'>Conocer</a>
+              <button class="btn btn-primary person-Actores-window" data-person='${actor.actor.Picture}'>Ventana</button>
             </div>
           </div>`
             CastRow.appendChild(actorsColumn);
         }
-        for (let i = 0; i < arrayDirectors.length; i++) {
+        for (let director of directors) {
             let directorsColumn = document.createElement("div");
             directorsColumn.classList.add("col");
             directorsColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem;  margin-top:2rem;">
-            <img src='./media/personas/${arrayDirectors[i].Picture}' class="card-img-top" alt="${arrayDirectors[i].Picture}" width=200 height=200/>
+            <img src='./media/personas/${director.director.Picture}' class="card-img-top" alt="${director.director.Picture}" width=200 height=200/>
             <div class="card-body">
-              <h5 class="card-title"><p>Director</p>${arrayDirectors[i].Name} ${arrayDirectors[i].FirstLastName}</h5>
-              <a href="#DirectoresCard" class="btn btn-primary person-Directores" data-person='${arrayDirectors[i].Picture}'>Conocer</a>
-              <button class="btn btn-primary person-Directores-window" data-person='${arrayDirectors[i].Picture}'>Ventana</button>
+              <h5 class="card-title"><p>Director</p>${director.director.Name} ${director.FirstLastName}</h5>
+              <a href="#DirectoresCard" class="btn btn-primary person-Directores" data-person='${director.director.Picture}'>Conocer</a>
+              <button class="btn btn-primary person-Directores-window" data-person='${director.director.Picture}'>Ventana</button>
             </div>
           </div>`
             CastRow.appendChild(directorsColumn);
@@ -498,8 +464,7 @@ class videoSystemView {
         if (window.document.getElementById("div-Contents")) main.removeChild(window.document.getElementById("div-Contents"));
 
         let productionContainer = window.document.createElement("div");
-        let arrayActors = [];
-        let arrayDirectors = [];
+
         // Le añadimos una clase (container)
         productionContainer.classList.add("container");
         productionContainer.classList.add("text-center");
@@ -525,62 +490,51 @@ class videoSystemView {
 
         productionContainer.appendChild(productionInfoContainer);
 
-        for (let actor of actors) {
-            arrayActors.push(actor.actor);
-        }
-
-        for (let director of directors) {
-            arrayDirectors.push(director.director);
-        }
 
         let CastRow = window.document.createElement("div");
         CastRow.classList.add("row");
         CastRow.innerHTML = "<h2>Reparto</h2>";
         productionInfoContainer.appendChild(CastRow);
 
-        for (let i = 0; i < arrayActors.length; i++) {
-            let actorsColumn = window.document.createElement("div");
+        for (let actor of actors) {
+            let actorsColumn = document.createElement("div");
             actorsColumn.classList.add("col");
             actorsColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem; margin-top:2rem;">
-            <img src='./media/personas/${arrayActors[i].Picture}' class="card-img-top" alt="${arrayActors[i].Picture}" width=200 height=200/>
+            <img src='./media/personas/${actor.actor.Picture}' class="card-img-top" alt="${actor.actor.Picture}" width=200 height=200/>
             <div class="card-body">
-              <h5 class="card-title"><p>Actor</p>${arrayActors[i].Name} ${arrayActors[i].FirstLastName}</h5>
-              </div>
-              </div>`
-            //   <a href="#ActoresCard" class="btn btn-primary person-Actores" data-person='${arrayActors[i].Picture}'>Conocer</a>
-            //   <a href="#ActoresCard" class="btn btn-primary person-Actores-window" data-person='${arrayActors[i].Picture}'>Ventana</a>
+              <h5 class="card-title"><p>Actor</p>${actor.actor.Name} ${actor.actor.FirstLastName}</h5>
+            </div>
+          </div>`
             CastRow.appendChild(actorsColumn);
         }
-        for (let i = 0; i < arrayDirectors.length; i++) {
-            let directorsColumn = window.document.createElement("div");
+        for (let director of directors) {
+            let directorsColumn = document.createElement("div");
             directorsColumn.classList.add("col");
             directorsColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem;  margin-top:2rem;">
-            <img src='./media/personas/${arrayDirectors[i].Picture}' class="card-img-top" alt="${arrayDirectors[i].Picture}" width=200 height=200/>
+            <img src='./media/personas/${director.director.Picture}' class="card-img-top" alt="${director.director.Picture}" width=200 height=200/>
             <div class="card-body">
-              <h5 class="card-title"><p>Director</p> ${arrayDirectors[i].Name} ${arrayDirectors[i].FirstLastName}</h5>
-              </div>
-              </div>`
-            //   <a href="#DirectoresCard" class="btn btn-primary person-Directores" data-person='${arrayDirectors[i].Picture}'>Conocer</a>
-            //   <a href="#DirectoresCard" class="btn btn-primary person-Directores-window" data-person='${arrayDirectors[i].Picture}'>Ventana</a>
+              <h5 class="card-title"><p>Director</p>${director.director.Name} ${director.director.FirstLastName}</h5>
+    
+            </div>
+          </div>`
             CastRow.appendChild(directorsColumn);
         }
 
         this.windows.set(production.Title, window);
     }
 
-    productionForm() {
+    productionForm(categoryList,actorList,directorList) {
         let form = document.getElementById("formModal");
         form.innerHTML = ` <div class="container" id="cValidation" >
         <h1 class="display-5">Producciones</h1>
         <form name="fValidation" role="form" id="form-validation">
           <!-- Requiered -->
           <div class="form-row">
+          <div class="row">
             <div class="col-md-4 mb-3 w-50">
               <label for="type">Tipo</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text h-100" id="typePrepend"><i class="fas fa-user"></i></span>
-                </div>
+                
                 <select class="form-select" aria-label="Default select example" id="type" name="type">
                   <option selected value="Serie">Pelicula</option>
                   <option value="Movie">Serie</option>
@@ -590,14 +544,13 @@ class videoSystemView {
             <div class="col-md-4 mb-3 w-50" >
               <label for="vfTitulo">Título *</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text h-100" id="namePrepend"><i class="fas fa-user"></i></span>
-                </div>
+                    
                 <input type="text" class="form-control" id="vfName" name="vfName" placeholder="Titulo"
                   aria-describedby="namePrepend" value="" required>
                 <div class="invalid-feedback">El Título es obligatorio.</div>
                 <div class="valid-feedback">Correcto.</div>
               </div>
+            </div>
             </div>
             <div class="col-md-4 mb-3 w-50" >
             <div class="input-group">
@@ -607,53 +560,105 @@ class videoSystemView {
             </label>
             </div>
             </div>
+            <div class="row">
             <div class="col-md-4 mb-3 w-50">
               <label for="vfPublication">Publicación *</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text h-100" id="publicationPrepend"><i class="fas fa-user"></i></span>
-                </div>
+                                
                 <input type="date" class="form-control" id="vfPublication" name="vfPublication"
                   placeholder="Segundo apellido" aria-describedby="publicationPrepend" value="" required>
                 <div class="invalid-feedback">La fecha de publicación es obligatoria.</div>
                 <div class="valid-feedback">Correcto.</div>
               </div>
             </div>
-            </div>
-          </div>
-          <!-- Datos -->
-          <div class="form-row">
             <div class="col-md-4 mb-3 w-50">
               <label for="Nationality">Nacionalidad</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text h-100" id="nationalityPrepend"><i class="fas fa-user"></i></span>
-                </div>
+                                 
                 <input type="text" class="form-control" id="Nationality" name="Nationality"
                   placeholder="ES/FR/GB/RU/US" aria-describedby="nationalityPrepend" value="">
               </div>
             </div>
-            <div class="col-md-4 mb-3 w-75">
+            </div>
+            </div>
+          </div>
+          <!-- Datos -->
+          <div class="form-row" id="dinamicHolder">
+          <div class="row">
+            <div class="col-md-4 mb-3 w-100">
               <label for="Synopsis">Sinopsis</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text h-100" id="synopsisPrepend"><i class="fas fa-user"></i></span>
-                </div>
+              <div class="input-group">        
                 <textarea type="text" class="form-control" id="Synopsis" name="Synopsis"
-                 aria-describedby="synopsisPrepend"></textarea>
+                 aria-describedby="synopsisPrepend" rows="9"></textarea>
               </div>
             </div>
             <div class="col-md-4 mb-3 w-100">
               <label for="Image">Imagen</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text h-100" id="imagePrepend"><i class="fas fa-user"></i></span>
-                </div>
+                
                 <input type="file" class="form-control" id="Image" name="Image" aria-describedby="imagePrepend">
               </div>
           </div>
+          </div>
+          
         </form>
       </div>`;
+
+        let dinamicHolder=document.getElementById("dinamicHolder");
+        let dinamicContents = document.createElement("div");
+        dinamicContents.classList.add("row");
+        dinamicContents.innerHTML = `<div class="col-md-4 mb-3 w-50">
+        <label for="Director">Directores</label>
+        <div class="input-group">
+        <select class="form-select" multiple aria-label="multiple select example" id="directorSelect">
+
+        </select>
+        </div>
+        </div>
+        <div class="col-md-4 mb-3 w-50">
+        <label for="Actor">Actores</label>
+        <div class="input-group">
+        <select class="form-select" multiple aria-label="multiple select example" id="actorSelect">
+
+        </select>
+        </div>
+        </div>
+        <div class="col-md-4 mb-3 w-50">
+        <label for="Category">Categoria</label>
+        <div class="input-group">
+        <select class="form-select" multiple aria-label="multiple select example" id="categorySelect">
+
+        </select>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear</button>`;
+
+        dinamicHolder.appendChild(dinamicContents);
+
+        let dinamicDirectors=document.getElementById("directorSelect");
+        for (let director of directorList) {
+            let option= document.createElement("option");
+            option.setAttribute("value",director.Picture);
+            option.innerText=`${director.Name} ${director.FirstLastName}`;
+            dinamicDirectors.appendChild(option);
+        }
+
+        let dinamicActors=document.getElementById("actorSelect");
+        for (let actor of actorList) {
+            let option= document.createElement("option");
+            option.setAttribute("value",actor.Picture);
+            option.innerText=`${actor.Name} ${actor.FirstLastName}`;
+            dinamicActors.appendChild(option);
+        }
+
+        let dinamicCategory=document.getElementById("categorySelect");
+        for (let category of categoryList) {
+            let option= document.createElement("option");
+            option.setAttribute("value",category.Name);
+            option.innerText=`${category.Name}`;
+            dinamicCategory.appendChild(option);
+        }
+
     }
 
     /**
