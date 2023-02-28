@@ -115,7 +115,7 @@
           <form name="fValidation" role="form">
             <!-- Requiered -->
             <div class="form-row">
-              <div class="col-md-4 mb-3">
+              <div class="col-md-4 mb-3 w-50" >
                 <label for="vfTitulo">Título *</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -139,18 +139,38 @@
                   <div class="valid-feedback">Correcto.</div>
                 </div>
               </div>
-              <div class="col-md-4 mb-3">
-                <label for="vfNationality">Nacionalidad *</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-4 mb-3 w-50">
+                <label for="Nationality">Nacionalidad</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="nationalityPrepend"><i class="fas fa-user"></i></span>
                   </div>
-                  <input type="text" class="form-control" id="vfNationality" name="vfNationality"
+                  <input type="text" class="form-control" id="Nationality" name="Nationality"
                     placeholder="ES/FR/GB/RU/US" aria-describedby="nationalityPrepend" value="">
-                    <div class="invalid-feedback">La nacionalidad es obligatoria.</div>
-                  <div class="valid-feedback">Correcto.</div>
                 </div>
               </div>
+              <div class="col-md-4 mb-3 w-75">
+                <label for="Synopsis">Sinopsis</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="synopsisPrepend"><i class="fas fa-user"></i></span>
+                  </div>
+                  <textarea type="text" class="form-control" id="Synopsis" name="Synopsis"
+                    placeholder="ES/FR/GB/RU/US" aria-describedby="synopsisPrepend">
+                  </textarea>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3 w-100">
+                <label for="Image">Imagen</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="imagePrepend"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input type="file" class="form-control" id="Image" name="Image" aria-describedby="imagePrepend">
+                </div>
             </div>
           </form>
         </div>
