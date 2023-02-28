@@ -203,6 +203,7 @@ class videoSystemController {
         this.#videoSystemView.bindDirectors(this.handleDirectors);
         this.#videoSystemView.bindProductionCard(this.HandleProduction);
         this.#videoSystemView.bindProductionCardWindow(this.HandleProductionWindow);
+        this.#videoSystemView.bindFormProduction(this.HandleProductionForm);
     }
 
     handleInit = () => {
@@ -262,15 +263,10 @@ class videoSystemController {
 
     handleActorCardWindow = (picture) => {
         this.onClickActorCardWindow(picture);
-        // this.#videoSystemView.bindProductionCard(this.HandleProduction);
-        // this.#videoSystemView.bindProductionCardWindow(this.HandleProductionWindow);
-
     }
 
     handleDirectorCardWindow = (picture) => {
         this.onClickDirectorCardWindow(picture);
-        // this.#videoSystemView.bindProductionCard(this.HandleProduction);
-        // this.#videoSystemView.bindProductionCardWindow(this.HandleProductionWindow);
     }
 
     HandleProduction = (title) => {
@@ -283,10 +279,10 @@ class videoSystemController {
 
     HandleProductionWindow = (title) => {
         this.onClickProductionCardWindow(title);
-        // this.#videoSystemView.bindActorCard(this.handleActorCard);
-        // this.#videoSystemView.bindActorCardWindow(this.handleActorCardWindow);
-        // this.#videoSystemView.bindDirectorCard(this.handleDirectorCard);
-        // this.#videoSystemView.bindDirectorCardWindow(this.handleDirectorCardWindow);
+    }
+
+    HandleProductionForm = () => {
+        this.onClickProductionForm();
     }
 
 
@@ -368,6 +364,10 @@ class videoSystemController {
             windowProduction.focus();
         }
 
+    }
+
+    onClickProductionForm = () => {
+        this.#videoSystemView.productionForm();
     }
 }
 

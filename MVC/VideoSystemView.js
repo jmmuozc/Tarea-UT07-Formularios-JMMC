@@ -568,6 +568,94 @@ class videoSystemView {
         this.windows.set(production.Title, window);
     }
 
+    productionForm() {
+        let form = document.getElementById("formModal");
+        form.innerHTML = ` <div class="container" id="cValidation" >
+        <h1 class="display-5">Producciones</h1>
+        <form name="fValidation" role="form" id="form-validation">
+          <!-- Requiered -->
+          <div class="form-row">
+            <div class="col-md-4 mb-3 w-50">
+              <label for="type">Tipo</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text h-100" id="typePrepend"><i class="fas fa-user"></i></span>
+                </div>
+                <select class="form-select" aria-label="Default select example" id="type" name="type">
+                  <option selected value="Serie">Pelicula</option>
+                  <option value="Movie">Serie</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-50" >
+              <label for="vfTitulo">Título *</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text h-100" id="namePrepend"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="vfName" name="vfName" placeholder="Titulo"
+                  aria-describedby="namePrepend" value="" required>
+                <div class="invalid-feedback">El Título es obligatorio.</div>
+                <div class="valid-feedback">Correcto.</div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-50" >
+            <div class="input-group">
+            <input class="form-check-input" type="checkbox" value="" id="CheckDelete">
+            <label class="form-check-label ms-1" for="CheckDelete">
+              Eliminar
+            </label>
+            </div>
+            </div>
+            <div class="col-md-4 mb-3 w-50">
+              <label for="vfPublication">Publicación *</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text h-100" id="publicationPrepend"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="date" class="form-control" id="vfPublication" name="vfPublication"
+                  placeholder="Segundo apellido" aria-describedby="publicationPrepend" value="" required>
+                <div class="invalid-feedback">La fecha de publicación es obligatoria.</div>
+                <div class="valid-feedback">Correcto.</div>
+              </div>
+            </div>
+            </div>
+          </div>
+          <!-- Datos -->
+          <div class="form-row">
+            <div class="col-md-4 mb-3 w-50">
+              <label for="Nationality">Nacionalidad</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text h-100" id="nationalityPrepend"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="Nationality" name="Nationality"
+                  placeholder="ES/FR/GB/RU/US" aria-describedby="nationalityPrepend" value="">
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-75">
+              <label for="Synopsis">Sinopsis</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text h-100" id="synopsisPrepend"><i class="fas fa-user"></i></span>
+                </div>
+                <textarea type="text" class="form-control" id="Synopsis" name="Synopsis"
+                 aria-describedby="synopsisPrepend"></textarea>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-100">
+              <label for="Image">Imagen</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text h-100" id="imagePrepend"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="file" class="form-control" id="Image" name="Image" aria-describedby="imagePrepend">
+              </div>
+          </div>
+        </form>
+      </div>`;
+    }
+
     /**
      * Cierra todas las ventanas
      */
@@ -752,6 +840,17 @@ class videoSystemView {
             });
 
         }
+    }
+
+    /**
+     * Funcion que añade un evento a los elementos con la clase formProduction
+     * @param {Function} handler 
+     */
+    bindFormProduction(handler) {
+        document.getElementById("FormProduction").addEventListener("click", (event) => {
+            handler()
+        });
+
     }
 
 

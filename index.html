@@ -47,7 +47,7 @@
                 </li>
 
                 <li>
-                  <button type="button" class="btn btn-light" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#ProductionModal">
+                  <button type="button" class="btn btn-light" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#ProductionModal" id="FormProduction">
                     Producciones
                   </button>
                 </li>
@@ -109,71 +109,8 @@
         <h1 class="modal-title fs-5" id="ProductionModalLabel">Formulario Producción</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <div class="container" id="cValidation">
-          <h1 class="display-5">Producciones</h1>
-          <form name="fValidation" role="form">
-            <!-- Requiered -->
-            <div class="form-row">
-              <div class="col-md-4 mb-3 w-50" >
-                <label for="vfTitulo">Título *</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="namePrepend"><i class="fas fa-user"></i></span>
-                  </div>
-                  <input type="text" class="form-control" id="vfName" name="vfName" placeholder="Titulo"
-                    aria-describedby="namePrepend" value="" required>
-                  <div class="invalid-feedback">El Título es obligatorio.</div>
-                  <div class="valid-feedback">Correcto.</div>
-                </div>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label for="vfPublication">Publicación *</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="publicationPrepend"><i class="fas fa-user"></i></span>
-                  </div>
-                  <input type="date" class="form-control" id="vfPublication" name="vfPublication"
-                    placeholder="Segundo apellido" aria-describedby="publicationPrepend" value="" required>
-                  <div class="invalid-feedback">La fecha de publicación es obligatoria.</div>
-                  <div class="valid-feedback">Correcto.</div>
-                </div>
-              </div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col-md-4 mb-3 w-50">
-                <label for="Nationality">Nacionalidad</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="nationalityPrepend"><i class="fas fa-user"></i></span>
-                  </div>
-                  <input type="text" class="form-control" id="Nationality" name="Nationality"
-                    placeholder="ES/FR/GB/RU/US" aria-describedby="nationalityPrepend" value="">
-                </div>
-              </div>
-              <div class="col-md-4 mb-3 w-75">
-                <label for="Synopsis">Sinopsis</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="synopsisPrepend"><i class="fas fa-user"></i></span>
-                  </div>
-                  <textarea type="text" class="form-control" id="Synopsis" name="Synopsis"
-                    placeholder="ES/FR/GB/RU/US" aria-describedby="synopsisPrepend">
-                  </textarea>
-                </div>
-              </div>
-              <div class="col-md-4 mb-3 w-100">
-                <label for="Image">Imagen</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="imagePrepend"><i class="fas fa-user"></i></span>
-                  </div>
-                  <input type="file" class="form-control" id="Image" name="Image" aria-describedby="imagePrepend">
-                </div>
-            </div>
-          </form>
-        </div>
+      <div class="modal-body" id="formModal">
+       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
