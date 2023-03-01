@@ -294,6 +294,7 @@ class videoSystemController {
 
     HandleCategoryForm = () => {
         this.onClickCategoryForm();
+        this.#videoSystemView.bindNewCategory(this.handleCreateCategory);
     }
 
     HandlePersonForm = () => {
@@ -391,6 +392,20 @@ class videoSystemController {
     onClickCategoryForm = () => {
         this.#videoSystemView.categoryForm();
     }
+
+    handleCreateCategory = (name, desc, img) => {
+		let done, error;
+        cat=this.videoSystemModel.getCategoryByName(name);
+		try{
+			this.#videoSystemModel.categoryFactory(name,desc);
+			done = true;
+		} catch(exception){
+			done = false;
+			error = exception;
+		}
+		this.#videoSystemView.categoryForm(done,cat ,error);
+		this.onAddCategory();
+	}
 
     onClickPersonForm = () => {
         this.#videoSystemView.personForm();

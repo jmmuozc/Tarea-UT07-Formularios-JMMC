@@ -1,6 +1,7 @@
 "use strict";
 
 import Production from "../js/Production.js";
+import {newCategoryValidation} from "./validation.js";
 
 class videoSystemView {
 
@@ -826,11 +827,12 @@ class videoSystemView {
         }
     }
 
-    categoryForm() {
+    categoryForm(done,cat ,error) {
         let form = document.getElementById("formModal");
-        form.innerHTML = ` <div class="container" id="cValidation" >
+        if (!done) {
+            form.innerHTML = ` <div class="container" id="cValidation" >
         <h1 class="display-5">Categorias</h1>
-        <form name="fValidation" role="form" id="form-validation">
+        <form name="fNewCategory" role="form" id="form-validation">
           <!-- Requiered -->
           <div class="form-row">
           <div class="row">
@@ -867,6 +869,12 @@ class videoSystemView {
             <button type="submit" class="btn btn-primary">Crear</button>
             </form>
             </div>`;
+        }else{
+            let errorDiv = document.createElement("div");
+            errorDiv.innerHTML=`<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat.Name}</strong> ya está creada.</div>`;
+            form.appendChild(errorDiv);
+        }
+        
     }
 
     /**
@@ -1086,6 +1094,13 @@ class videoSystemView {
             handler()
         });
 
+    }
+    /**
+     * Funcion que añade un evento a los elementos con la clase formCategory
+     * @param {Function} handler 
+     */
+    bindNewCategory(handler) {
+            newCategoryValidation(handler);
     }
 
     /**
