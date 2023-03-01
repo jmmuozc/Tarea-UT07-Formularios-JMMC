@@ -15,13 +15,15 @@ function showFeedBack(input, valid, message) {
 function newCategoryValidation(handler){
     let form = document.forms.fNewCategory;
     $(form).attr('novalidate', true);
-  
     $(form).submit(function(event){
       let isValid = true;
       let firstInvalidElement = null;
-  
       this.vfName.value = this.vfName.value.trim();
-      showFeedBack($(this.vfName), true);
+      if ( this.vfName.value=="") {
+        showFeedBack($(this.vfName), false);
+      }else{
+        showFeedBack($(this.vfName), true);
+      }
   
       if (!this.Description.checkValidity()){
         isValid = false;
@@ -30,7 +32,7 @@ function newCategoryValidation(handler){
       } else {
         showFeedBack($(this.Description), true);
       }
-  
+      
       if (!this.Image.checkValidity()){
         isValid = false;
         showFeedBack($(this.Image), false);
@@ -38,7 +40,7 @@ function newCategoryValidation(handler){
       } else {
         showFeedBack($(this.Image), true);
       }
-  
+      
       if (!isValid){
         firstInvalidElement.focus();
       } else {

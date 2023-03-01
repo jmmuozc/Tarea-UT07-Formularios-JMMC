@@ -390,21 +390,22 @@ class videoSystemController {
     }
 
     onClickCategoryForm = () => {
-        this.#videoSystemView.categoryForm();
+        this.#videoSystemView.categoryForm(true,"");
     }
 
     handleCreateCategory = (name, desc, img) => {
-		let done, error;
-        cat=this.videoSystemModel.getCategoryByName(name);
+        let done;
+        let category;
 		try{
-			this.#videoSystemModel.categoryFactory(name,desc);
-			done = true;
+            category =this.#videoSystemModel.categoryFactory(name,desc);
+            console.log(category);
+            this.#videoSystemModel.addCategory(category);
+            done=true;
+            this.onInit();
 		} catch(exception){
-			done = false;
-			error = exception;
+            done=false;
 		}
-		this.#videoSystemView.categoryForm(done,cat ,error);
-		this.onAddCategory();
+        this.#videoSystemView.categoryForm(done,name);
 	}
 
     onClickPersonForm = () => {
