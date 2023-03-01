@@ -756,9 +756,16 @@ class videoSystemView {
         form.innerHTML = ` <div class="container" id="cValidation" >
         <h1 class="display-5">Asignar Reparto</h1>
         <form name="fValidation" role="form" id="form-validation">
-          <!-- Requiered -->
+          <div class="col-md-4 mb-3 w-50" >
+          <div class="input-group">
+          <input class="form-check-input" type="checkbox" value="" id="CheckUnassign">
+          <label class="form-check-label ms-1" for="CheckUnassign">
+          Desasignar
+          </label>
+          </div>
+          </div>
           <div class="form-row" id="dinamicHolder">
-  
+          
           </form>
           </div>`;
 
