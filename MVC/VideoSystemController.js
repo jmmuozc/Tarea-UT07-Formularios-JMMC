@@ -204,6 +204,7 @@ class videoSystemController {
         this.#videoSystemView.bindProductionCard(this.HandleProduction);
         this.#videoSystemView.bindProductionCardWindow(this.HandleProductionWindow);
         this.#videoSystemView.bindFormProduction(this.HandleProductionForm);
+        this.#videoSystemView.bindFormPerson(this.HandlePersonForm);
     }
 
     handleInit = () => {
@@ -285,6 +286,9 @@ class videoSystemController {
         this.onClickProductionForm();
     }
 
+    HandlePersonForm = () => {
+        this.onClickPersonForm();
+    }
 
     onClickClosewindows = () => {
         this.#videoSystemView.closeAllWindows();
@@ -368,6 +372,10 @@ class videoSystemController {
 
     onClickProductionForm = () => {
         this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList,this.#videoSystemModel.Actors,this.#videoSystemModel.Directors);
+    }
+
+    onClickPersonForm= () => {
+        this.#videoSystemView.personForm();
     }
 }
 

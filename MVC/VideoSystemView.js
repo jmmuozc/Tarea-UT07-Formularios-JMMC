@@ -536,8 +536,8 @@ class videoSystemView {
               <div class="input-group">
                 
                 <select class="form-select" aria-label="Default select example" id="type" name="type">
-                  <option selected value="Serie">Pelicula</option>
-                  <option value="Movie">Serie</option>
+                  <option selected value="Serie">Serie</option>
+                  <option value="Movie">Pelicula</option>
                 </select>
               </div>
             </div>
@@ -545,8 +545,8 @@ class videoSystemView {
               <label for="vfTitulo">Título *</label>
               <div class="input-group">
                     
-                <input type="text" class="form-control" id="vfName" name="vfName" placeholder="Titulo"
-                  aria-describedby="namePrepend" value="" required>
+                <input type="text" class="form-control" id="vfTitle" name="vfTitle" placeholder="Titulo"
+                  aria-describedby="titlePrepend" value="" required>
                 <div class="invalid-feedback">El Título es obligatorio.</div>
                 <div class="valid-feedback">Correcto.</div>
               </div>
@@ -659,6 +659,96 @@ class videoSystemView {
             dinamicCategory.appendChild(option);
         }
 
+    }
+
+    personForm(){
+        let form = document.getElementById("formModal");
+        form.innerHTML = ` <div class="container" id="cValidation" >
+        <h1 class="display-5">Personas</h1>
+        <form name="fValidation" role="form" id="form-validation">
+          <!-- Requiered -->
+          <div class="form-row">
+          <div class="row">
+            <div class="col-md-4 mb-3 w-50">
+              <label for="type">Tipo</label>
+              <div class="input-group">
+                
+                <select class="form-select" aria-label="Default select example" id="type" name="type">
+                  <option selected value="Actor">Actor</option>
+                  <option value="Director">Director</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-50" >
+              <label for="vfName">Nombre *</label>
+              <div class="input-group">
+                    
+                <input type="text" class="form-control" id="vfName" name="vfName" placeholder="Nombre"
+                  aria-describedby="namePrepend" value="" required>
+                <div class="invalid-feedback">El Nombre es obligatorio.</div>
+                <div class="valid-feedback">Correcto.</div>
+              </div>
+            </div>
+            </div>
+            <div class="col-md-4 mb-3 w-50" >
+            <div class="input-group">
+            <input class="form-check-input" type="checkbox" value="" id="CheckDelete">
+            <label class="form-check-label ms-1" for="CheckDelete">
+              Eliminar
+            </label>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-md-4 mb-3 w-50">
+              <label for="vfBorn">Fecha Nacimiento *</label>
+              <div class="input-group">
+                                
+                <input type="date" class="form-control" id="vfBorn" name="vfBorn"
+                  placeholder="" aria-describedby="datePrepend" value="" required>
+                <div class="invalid-feedback">La fecha de nacimiento es obligatoria.</div>
+                <div class="valid-feedback">Correcto.</div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-50">
+              <label for="DNI">DNI *</label>
+              <div class="input-group">
+                                 
+                <input type="text" class="form-control" id="DNI" name="DNI"
+                  placeholder="00000000X" aria-describedby="dniPrepend" value="">
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+          <!-- Datos -->
+          <div class="form-row" id="dinamicHolder">
+          <div class="row">
+            <div class="col-md-4 mb-3 w-50">
+              <label for="LastName">Apellido</label>
+              <div class="input-group">        
+              <input type="text" class="form-control" id="LastName" name="LastName"
+              placeholder="Apellido" aria-describedby="lastNamePrepend" value="">
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-50">
+              <label for="LastNameTwo">Segundo Apellido</label>
+              <div class="input-group">        
+              <input type="text" class="form-control" id="LastNameTwo" name="LastNameTwo"
+              placeholder="Segundo Apellido" aria-describedby="lastNameTwoPrepend" value="">
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-100">
+              <label for="Image">Imagen</label>
+              <div class="input-group">
+                
+                <input type="file" class="form-control" id="Image" name="Image" aria-describedby="imagePrepend">
+              </div>
+          </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear</button>
+
+        </form>
+      </div>`;
     }
 
     /**
@@ -853,6 +943,17 @@ class videoSystemView {
      */
     bindFormProduction(handler) {
         document.getElementById("FormProduction").addEventListener("click", (event) => {
+            handler()
+        });
+
+    }
+
+    /**
+     * Funcion que añade un evento a los elementos con la clase formPerson
+     * @param {Function} handler 
+     */
+    bindFormPerson(handler) {
+        document.getElementById("FormPerson").addEventListener("click", (event) => {
             handler()
         });
 
