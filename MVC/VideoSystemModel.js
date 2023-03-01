@@ -582,7 +582,7 @@ let videoSystem = (function () {
                             this.#CategoriesList[catPosition].productions.splice(prodPosition, 1);
                         }
                         // En caso de que no exista la produccion se manda un mensaje y se continua con el resto de producciones
-                    } else console.log("Production does not exists");
+                    } else throw new ProductionNoExists;
                 });
                 return this.#CategoriesList[catPosition].length;
             }
@@ -636,7 +636,7 @@ let videoSystem = (function () {
                             this.#DirectorList[directorPosition].productions.splice(prodPosition, 1);
                         }
                         // En caso de que no exista la produccion se manda un mensaje y se continua con el resto de producciones
-                    } else console.log("Production does not exists");
+                    } else throw new ProductionNoExists;
                 });
                 return this.#DirectorList[directorPosition].length;
             }
@@ -690,7 +690,7 @@ let videoSystem = (function () {
                             this.#ActorList[actorPosition].productions.splice(prodPosition, 1);
                         }
                         // En caso de que no exista la produccion se manda un mensaje y se continua con el resto de producciones
-                    } else console.log("Production does not exists");
+                    } else throw new ProductionNoExists;
                 });
                 return this.#ActorList[actorPosition].length;
             }
