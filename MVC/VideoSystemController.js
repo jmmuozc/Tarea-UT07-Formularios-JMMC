@@ -204,6 +204,8 @@ class videoSystemController {
         this.#videoSystemView.bindProductionCard(this.HandleProduction);
         this.#videoSystemView.bindProductionCardWindow(this.HandleProductionWindow);
         this.#videoSystemView.bindFormProduction(this.HandleProductionForm);
+        this.#videoSystemView.bindFormCasting(this.HandleCastingForm);
+        this.#videoSystemView.bindFormCategory(this.HandleCategoryForm);
         this.#videoSystemView.bindFormPerson(this.HandlePersonForm);
     }
 
@@ -284,6 +286,14 @@ class videoSystemController {
 
     HandleProductionForm = () => {
         this.onClickProductionForm();
+    }
+
+    HandleCastingForm = () => {
+        this.onClickCastingForm();
+    }
+
+    HandleCategoryForm = () => {
+        this.onClickCategoryForm();
     }
 
     HandlePersonForm = () => {
@@ -371,10 +381,18 @@ class videoSystemController {
     }
 
     onClickProductionForm = () => {
-        this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList,this.#videoSystemModel.Actors,this.#videoSystemModel.Directors);
+        this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors);
     }
 
-    onClickPersonForm= () => {
+    onClickCastingForm = () => {
+        this.#videoSystemView.castingForm(this.#videoSystemModel.Productions, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors);
+    }
+
+    onClickCategoryForm = () => {
+        this.#videoSystemView.categoryForm();
+    }
+
+    onClickPersonForm = () => {
         this.#videoSystemView.personForm();
     }
 }

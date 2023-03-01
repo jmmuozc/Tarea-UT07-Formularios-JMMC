@@ -663,7 +663,7 @@ let videoSystem = (function () {
                         this.#ActorList[actorPosition].productions.push(this.#ProductionsList[this.#getProductionPosition(element)]);
                     }
                 });
-                return this.#ActorList[actorPosition].length;
+                return this.#ActorList[actorPosition].productions.length;
             }
 
             /**

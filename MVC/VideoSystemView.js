@@ -373,7 +373,7 @@ class videoSystemView {
               <h5 class="card-title">${production.Title}</h5>
               </div>
               </div>`
-           productionsRow.appendChild(productionsColumn);
+            productionsRow.appendChild(productionsColumn);
         }
 
         this.windows.set(person.Picture, window);
@@ -523,7 +523,7 @@ class videoSystemView {
         this.windows.set(production.Title, window);
     }
 
-    productionForm(categoryList,actorList,directorList) {
+    productionForm(categoryList, actorList, directorList) {
         let form = document.getElementById("formModal");
         form.innerHTML = ` <div class="container" id="cValidation" >
         <h1 class="display-5">Producciones</h1>
@@ -566,7 +566,7 @@ class videoSystemView {
               <div class="input-group">
                                 
                 <input type="date" class="form-control" id="vfPublication" name="vfPublication"
-                  placeholder="Segundo apellido" aria-describedby="publicationPrepend" value="" required>
+                  placeholder="" aria-describedby="publicationPrepend" value="" required>
                 <div class="invalid-feedback">La fecha de publicación es obligatoria.</div>
                 <div class="valid-feedback">Correcto.</div>
               </div>
@@ -604,7 +604,7 @@ class videoSystemView {
         </form>
       </div>`;
 
-        let dinamicHolder=document.getElementById("dinamicHolder");
+        let dinamicHolder = document.getElementById("dinamicHolder");
         let dinamicContents = document.createElement("div");
         dinamicContents.classList.add("row");
         dinamicContents.innerHTML = `<div class="col-md-4 mb-3 w-50">
@@ -624,7 +624,7 @@ class videoSystemView {
         </div>
         </div>
         <div class="col-md-4 mb-3 w-50">
-        <label for="Category">Categoria</label>
+        <label for="Category">Categorias</label>
         <div class="input-group">
         <select class="form-select" multiple aria-label="multiple select example" id="categorySelect">
 
@@ -635,33 +635,33 @@ class videoSystemView {
 
         dinamicHolder.appendChild(dinamicContents);
 
-        let dinamicDirectors=document.getElementById("directorSelect");
+        let dinamicDirectors = document.getElementById("directorSelect");
         for (let director of directorList) {
-            let option= document.createElement("option");
-            option.setAttribute("value",director.Picture);
-            option.innerText=`${director.Name} ${director.FirstLastName}`;
+            let option = document.createElement("option");
+            option.setAttribute("value", director.Picture);
+            option.innerText = `${director.Name} ${director.FirstLastName}`;
             dinamicDirectors.appendChild(option);
         }
 
-        let dinamicActors=document.getElementById("actorSelect");
+        let dinamicActors = document.getElementById("actorSelect");
         for (let actor of actorList) {
-            let option= document.createElement("option");
-            option.setAttribute("value",actor.Picture);
-            option.innerText=`${actor.Name} ${actor.FirstLastName}`;
+            let option = document.createElement("option");
+            option.setAttribute("value", actor.Picture);
+            option.innerText = `${actor.Name} ${actor.FirstLastName}`;
             dinamicActors.appendChild(option);
         }
 
-        let dinamicCategory=document.getElementById("categorySelect");
+        let dinamicCategory = document.getElementById("categorySelect");
         for (let category of categoryList) {
-            let option= document.createElement("option");
-            option.setAttribute("value",category.Name);
-            option.innerText=`${category.Name}`;
+            let option = document.createElement("option");
+            option.setAttribute("value", category.Name);
+            option.innerText = `${category.Name}`;
             dinamicCategory.appendChild(option);
         }
 
     }
 
-    personForm(){
+    personForm() {
         let form = document.getElementById("formModal");
         form.innerHTML = ` <div class="container" id="cValidation" >
         <h1 class="display-5">Personas</h1>
@@ -721,10 +721,10 @@ class videoSystemView {
             </div>
           </div>
           <!-- Datos -->
-          <div class="form-row" id="dinamicHolder">
+          <div class="form-row">
           <div class="row">
             <div class="col-md-4 mb-3 w-50">
-              <label for="LastName">Apellido</label>
+              <label for="LastName">Apellido *</label>
               <div class="input-group">        
               <input type="text" class="form-control" id="LastName" name="LastName"
               placeholder="Apellido" aria-describedby="lastNamePrepend" value="">
@@ -749,6 +749,117 @@ class videoSystemView {
 
         </form>
       </div>`;
+    }
+
+    castingForm(productionList, actorList, directorList) {
+        let form = document.getElementById("formModal");
+        form.innerHTML = ` <div class="container" id="cValidation" >
+        <h1 class="display-5">Asignar Reparto</h1>
+        <form name="fValidation" role="form" id="form-validation">
+          <!-- Requiered -->
+          <div class="form-row" id="dinamicHolder">
+  
+          </form>
+          </div>`;
+
+        let dinamicHolder = document.getElementById("dinamicHolder");
+
+        let dinamicContents = document.createElement("div");
+        dinamicContents.classList.add("row");
+        dinamicContents.innerHTML = `<div class="col-md-4 mb-3 w-50">
+        <label for="Director">Directores</label>
+        <div class="input-group">
+        <select class="form-select" multiple aria-label="multiple select example" id="directorSelect">
+
+        </select>
+        </div>
+        </div>
+        <div class="col-md-4 mb-3 w-50">
+        <label for="Actor">Actores</label>
+        <div class="input-group">
+        <select class="form-select" multiple aria-label="multiple select example" id="actorSelect">
+
+        </select>
+        </div>
+        </div>
+        <div class="col-md-4 mb-3 w-100">
+        <label for="Production">Producciones</label>
+        <div class="input-group">
+        <select class="form-select" multiple aria-label="multiple select example" id="productionSelect">
+
+        </select>
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear</button>`;
+
+        dinamicHolder.appendChild(dinamicContents);
+
+        let dinamicDirectors = document.getElementById("directorSelect");
+        for (let director of directorList) {
+            let option = document.createElement("option");
+            option.setAttribute("value", director.Picture);
+            option.innerText = `${director.Name} ${director.FirstLastName}`;
+            dinamicDirectors.appendChild(option);
+        }
+
+        let dinamicActors = document.getElementById("actorSelect");
+        for (let actor of actorList) {
+            let option = document.createElement("option");
+            option.setAttribute("value", actor.Picture);
+            option.innerText = `${actor.Name} ${actor.FirstLastName}`;
+            dinamicActors.appendChild(option);
+        }
+
+        let dinamicCategory = document.getElementById("productionSelect");
+        for (let production of productionList) {
+            let option = document.createElement("option");
+            option.setAttribute("value", production.Title);
+            option.innerText = `${production.Title}`;
+            dinamicCategory.appendChild(option);
+        }
+    }
+
+    categoryForm() {
+        let form = document.getElementById("formModal");
+        form.innerHTML = ` <div class="container" id="cValidation" >
+        <h1 class="display-5">Categorias</h1>
+        <form name="fValidation" role="form" id="form-validation">
+          <!-- Requiered -->
+          <div class="form-row">
+          <div class="row">
+            <div class="col-md-4 mb-3 w-100" >
+              <label for="vfName">Nombre *</label>
+              <div class="input-group">
+                    
+                <input type="text" class="form-control" id="vfName" name="vfName" placeholder="Nombre"
+                  aria-describedby="namePrepend" value="" required>
+                <div class="invalid-feedback">El Nombre es obligatorio.</div>
+                <div class="valid-feedback">Correcto.</div>
+              </div>
+              </div>
+              <div class="col-md-4 mb-3 w-100">
+                <div class="input-group">
+                  
+                <label for="Description">Descripción</label>
+                <div class="input-group">        
+                  <textarea type="text" class="form-control" id="Description" name="Description"
+                   aria-describedby="descriptionPrepend" rows="9"></textarea>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3 w-100">
+              <label for="Image">Imagen</label>
+              <div class="input-group">
+                
+                <input type="file" class="form-control" id="Image" name="Image" aria-describedby="imagePrepend">
+              </div>
+          </div>
+            </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear</button>
+            </form>
+            </div>`;
     }
 
     /**
@@ -943,6 +1054,28 @@ class videoSystemView {
      */
     bindFormProduction(handler) {
         document.getElementById("FormProduction").addEventListener("click", (event) => {
+            handler()
+        });
+
+    }
+
+    /**
+     * Funcion que añade un evento a los elementos con la clase formCasting
+     * @param {Function} handler 
+     */
+    bindFormCasting(handler) {
+        document.getElementById("FormCasting").addEventListener("click", (event) => {
+            handler()
+        });
+
+    }
+
+    /**
+     * Funcion que añade un evento a los elementos con la clase formCategory
+     * @param {Function} handler 
+     */
+    bindFormCategory(handler) {
+        document.getElementById("FormCategory").addEventListener("click", (event) => {
             handler()
         });
 
