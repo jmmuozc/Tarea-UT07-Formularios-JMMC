@@ -193,6 +193,7 @@ class videoSystemController {
         this.#videoSystemView.showCategories(this.#videoSystemModel.CategoriesList);
         this.#videoSystemView.rngProductions(this.#videoSystemModel.Productions);
         this.#videoSystemView.headerCategories(this.#videoSystemModel.CategoriesList);
+        // this.#videoSystemView.createModal();
 
 
         this.#videoSystemView.bindWindow(this.handleCloseWindows);
@@ -390,23 +391,33 @@ class videoSystemController {
     }
 
     onClickCategoryForm = () => {
-        this.#videoSystemView.categoryForm(true,"");
+        this.#videoSystemView.categoryForm(true, "", undefined);
     }
 
-    handleCreateCategory = (name, desc, img) => {
+    handleCreateCategory = (name, desc, img, del) => {
+        this.#videoSystemView.bindCloseModal(this.handleInit);
         let done;
         let category;
-		try{
-            category =this.#videoSystemModel.categoryFactory(name,desc);
-            console.log(category);
-            this.#videoSystemModel.addCategory(category);
-            done=true;
-            this.onInit();
-		} catch(exception){
-            done=false;
-		}
-        this.#videoSystemView.categoryForm(done,name);
-	}
+        if (del) {
+            try {
+                this.#videoSystemModel.removeCategory(this.#videoSystemModel.getCategoryByName(name));
+                done = true;
+            } catch (exception) {
+                done = false;
+            }
+        } else {
+            try {
+                category=this.#videoSystemModel.categoryFactory(name, desc);
+                this.#videoSystemModel.addCategory(category);
+                
+                done = true;
+            } catch (exception) {
+                done = false;
+            }
+        }
+
+        this.#videoSystemView.categoryForm(done, name, del);
+    }
 
     onClickPersonForm = () => {
         this.#videoSystemView.personForm();

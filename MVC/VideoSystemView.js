@@ -524,6 +524,35 @@ class videoSystemView {
     this.windows.set(production.Title, window);
   }
 
+  // createModal(){
+  //   console.log("Eliminado modal");
+  //   let body = document.getElementsByTagName("body")[0];
+  //   if (document.getElementById("Modal")) body.removeChild(document.getElementById("Modal"));
+  //   let modal=document.createElement("div");
+  //   modal.classList.add("modal");
+  //   modal.classList.add("fade");
+  //   modal.setAttribute("Id","Modal");
+  //   modal.setAttribute("tabindex","-1");
+  //   modal.setAttribute("aria-labelledby","ModalLabel");
+  //   modal.setAttribute("aria-hidden","true");
+  //   modal.innerHTML=`<div class="modal-dialog">
+  //   <div class="modal-content">
+  //     <div class="modal-header">
+  //       <h1 class="modal-title fs-5" id="ModalLabel">Formulario</h1>
+  //       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  //     </div>
+  //     <div class="modal-body" id="formModal">
+       
+  //     </div>
+  //     <div class="modal-footer">
+  //       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  //     </div>
+  //   </div>
+  // </div>`;
+  // body.appendChild(modal);
+  // }
+
+
   productionForm(categoryList, actorList, directorList) {
     let form = document.getElementById("formModal");
     form.innerHTML = ` <div class="container" id="cValidation" >
@@ -555,7 +584,7 @@ class videoSystemView {
             </div>
             <div class="col-md-4 mb-3 w-50" >
             <div class="input-group">
-            <input class="form-check-input" type="checkbox" value="" id="CheckDelete">
+            <input class="form-check-input" type="checkbox" id="CheckDelete">
             <label class="form-check-label ms-1" for="CheckDelete">
               Eliminar
             </label>
@@ -694,7 +723,7 @@ class videoSystemView {
             </div>
             <div class="col-md-4 mb-3 w-50" >
             <div class="input-group">
-            <input class="form-check-input" type="checkbox" value="" id="CheckDelete">
+            <input class="form-check-input" type="checkbox" id="CheckDelete">
             <label class="form-check-label ms-1" for="CheckDelete">
               Eliminar
             </label>
@@ -831,8 +860,9 @@ class videoSystemView {
     }
   }
 
-  categoryForm(done, cat) {
-    let modal= document.getElementById("formModal");
+  categoryForm(done, cat, del) {
+ 
+    let modal = document.getElementById("formModal");
     if (document.getElementById("errorDiv")) modal.removeChild(document.getElementById("errorDiv"));
     let form = document.getElementById("formModal");
     if (done) {
@@ -850,6 +880,14 @@ class videoSystemView {
                   aria-describedby="namePrepend" value="" required>
                 <div class="invalid-feedback">El Nombre es obligatorio.</div>
                 <div class="valid-feedback">Correcto.</div>
+              </div>
+              </div>
+              <div class="col-md-4 mb-3 w-50" >
+              <div class="input-group">
+              <input class="form-check-input" type="checkbox" id="CheckDelete">
+              <label class="form-check-label ms-1" for="CheckDelete">
+                Eliminar
+              </label>
               </div>
               </div>
               <div class="col-md-4 mb-3 w-100">
@@ -875,11 +913,32 @@ class videoSystemView {
             </div>
             </form>
             </div>`;
+      if (del) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> se ha eliminado con exito.</div>`;
+        form.appendChild(errorDiv);
+      }else if (del==false) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> se ha creado con exito.</div>`;
+        form.appendChild(errorDiv);
+      } else {
+        
+      }
     } else {
-      let errorDiv = document.createElement("div");
-      errorDiv.setAttribute("Id","errorDiv")
-      errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> ya está creada.</div>`;
-      form.appendChild(errorDiv);
+      if (del) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> no existe.</div>`;
+        form.appendChild(errorDiv);
+      }else if (del==false) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> ya está creada.</div>`;
+        form.appendChild(errorDiv);
+      }
+     
     }
 
   }
@@ -1119,6 +1178,15 @@ class videoSystemView {
       handler()
     });
 
+  }
+  /**
+   * Funcion que añade un evento a los elementos con la clase closeModal
+   * @param {Function} handler 
+   */
+  bindCloseModal(handler) {
+    document.getElementById("closeModal").addEventListener("click", (event) => {
+      handler()
+    });
   }
 
 
