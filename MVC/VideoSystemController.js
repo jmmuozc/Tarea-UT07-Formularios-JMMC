@@ -396,22 +396,21 @@ class videoSystemController {
     }
 
     handleCreateCategory = (name, desc, img, del) => {
-        this.#videoSystemView.bindCloseModal(this.handleInit);
         let done;
-        let category;
+
         if (del) {
             try {
                 this.#videoSystemModel.removeCategory(this.#videoSystemModel.getCategoryByName(name));
                 done = true;
+                this.onInit();
             } catch (exception) {
                 done = false;
             }
         } else {
             try {
-                category=this.#videoSystemModel.categoryFactory(name, desc);
-                this.#videoSystemModel.addCategory(category);
-                
+                this.#videoSystemModel.addCategory(this.#videoSystemModel.categoryFactory(name, desc));
                 done = true;
+                this.onInit();
             } catch (exception) {
                 done = false;
             }

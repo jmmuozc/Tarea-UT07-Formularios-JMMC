@@ -56,7 +56,7 @@ class videoSystemView {
       categoriesColumn.classList.add("category");
       categoriesColumn.setAttribute("style", `margin-top:2rem`);
       categoriesColumn.setAttribute("data-category", `${category.Name}`);
-      categoriesColumn.innerHTML = `<img src='./media/categorias/${category.Name}.jpg' width=200 height=100/>
+      categoriesColumn.innerHTML = `<img src='./media/categorias/${category.Name}.jpg' width=200 height=100 alt='${category.Name}.jpg'/>
             <h3>${category.Name}</h3>`;
       categoriesRow.appendChild(categoriesColumn);
     }
@@ -1178,15 +1178,6 @@ class videoSystemView {
       handler()
     });
 
-  }
-  /**
-   * Funcion que añade un evento a los elementos con la clase closeModal
-   * @param {Function} handler 
-   */
-  bindCloseModal(handler) {
-    document.getElementById("closeModal").addEventListener("click", (event) => {
-      handler()
-    });
   }
 
 
