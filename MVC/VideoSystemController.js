@@ -252,25 +252,26 @@ class videoSystemController {
 
     }
 
-    handleActorCard = (picture) => {
-        this.onClickActorCard(picture);
+    handleActorCard = (dni) => {
+        this.onClickActorCard(dni);
         this.#videoSystemView.bindProductionCard(this.HandleProduction);
         this.#videoSystemView.bindProductionCardWindow(this.HandleProductionWindow);
 
     }
 
-    handleDirectorCard = (picture) => {
-        this.onClickDirectorCard(picture);
+    handleDirectorCard = (dni) => {
+        console.log(dni);
+        this.onClickDirectorCard(dni);
         this.#videoSystemView.bindProductionCard(this.HandleProduction);
         this.#videoSystemView.bindProductionCardWindow(this.HandleProductionWindow);
     }
 
-    handleActorCardWindow = (picture) => {
-        this.onClickActorCardWindow(picture);
+    handleActorCardWindow = (dni) => {
+        this.onClickActorCardWindow(dni);
     }
 
-    handleDirectorCardWindow = (picture) => {
-        this.onClickDirectorCardWindow(picture);
+    handleDirectorCardWindow = (dni) => {
+        this.onClickDirectorCardWindow(dni);
     }
 
     HandleProduction = (title) => {
@@ -295,7 +296,7 @@ class videoSystemController {
 
     HandleCategoryForm = () => {
         this.onClickCategoryForm();
-        
+
     }
 
     HandlePersonForm = () => {
@@ -325,18 +326,18 @@ class videoSystemController {
         this.#videoSystemView.showPersonsList(this.#videoSystemModel.Directors, "Directores");
     }
 
-    onClickActorCard = (picture) => {
-        this.#videoSystemView.showPerson(this.#videoSystemModel.getPersonByPicture(picture), this.#videoSystemModel.getProductionsActor(this.#videoSystemModel.getPersonByPicture(picture)));
+    onClickActorCard = (dni) => {
+        this.#videoSystemView.showPerson(this.#videoSystemModel.getPersonByDNI(dni), this.#videoSystemModel.getProductionsActor(this.#videoSystemModel.getPersonByDNI(dni)));
     }
 
-    onClickDirectorCardWindow = (picture) => {
-        let windowDirector = this.#videoSystemView.windows.get(picture);
+    onClickDirectorCardWindow = (dni) => {
+        let windowDirector = this.#videoSystemView.windows.get(dni);
 
         if (!windowDirector || windowDirector.closed) {
 
-            windowDirector = window.open("window.html", picture, "width=800, height=1000, top=0, left=0, titlebar=yes, toolbar=no, menubar=no, location=no");
+            windowDirector = window.open("window.html", dni, "width=800, height=1000, top=0, left=0, titlebar=yes, toolbar=no, menubar=no, location=no");
             windowDirector.addEventListener('DOMContentLoaded', () => {
-                this.#videoSystemView.showPersonWindow(this.#videoSystemModel.getPersonByPicture(picture), this.#videoSystemModel.getProductionsDirector(this.#videoSystemModel.getPersonByPicture(picture)), windowDirector);
+                this.#videoSystemView.showPersonWindow(this.#videoSystemModel.getPersonByDNI(dni), this.#videoSystemModel.getProductionsDirector(this.#videoSystemModel.getPersonByDNI(dni)), windowDirector);
             });
         } else {
             windowDirector.focus();
@@ -344,13 +345,13 @@ class videoSystemController {
         }
     }
 
-    onClickActorCardWindow = (picture) => {
-        let windowActor = this.#videoSystemView.windows.get(picture);
+    onClickActorCardWindow = (dni) => {
+        let windowActor = this.#videoSystemView.windows.get(dni);
         if (!windowActor || windowActor.closed) {
 
-            windowActor = window.open("window.html", picture, "width=800, height=1000, top=0, left=0, titlebar=yes, toolbar=no, menubar=no, location=no");
+            windowActor = window.open("window.html", dni, "width=800, height=1000, top=0, left=0, titlebar=yes, toolbar=no, menubar=no, location=no");
             windowActor.addEventListener('DOMContentLoaded', () => {
-                this.#videoSystemView.showPersonWindow(this.#videoSystemModel.getPersonByPicture(picture), this.#videoSystemModel.getProductionsActor(this.#videoSystemModel.getPersonByPicture(picture)), windowActor);
+                this.#videoSystemView.showPersonWindow(this.#videoSystemModel.getPersonByDNI(dni), this.#videoSystemModel.getProductionsActor(this.#videoSystemModel.getPersonByDNI(dni)), windowActor);
             });
         } else {
             windowActor.focus();
@@ -358,8 +359,8 @@ class videoSystemController {
         }
     }
 
-    onClickDirectorCard = (picture) => {
-        this.#videoSystemView.showPerson(this.#videoSystemModel.getPersonByPicture(picture), this.#videoSystemModel.getProductionsDirector(this.#videoSystemModel.getPersonByPicture(picture)));
+    onClickDirectorCard = (dni) => {
+        this.#videoSystemView.showPerson(this.#videoSystemModel.getPersonByDNI(dni), this.#videoSystemModel.getProductionsDirector(this.#videoSystemModel.getPersonByDNI(dni)));
     }
 
     onClickProductionCard = (title) => {
@@ -395,7 +396,7 @@ class videoSystemController {
         this.#videoSystemView.bindNewCategory(this.handleCreateCategory);
     }
 
-    handleCreateCategory = (name, desc, img, del) => {
+    handleCreateCategory = (name, desc, del) => {
         let done;
 
         if (del) {
@@ -417,11 +418,58 @@ class videoSystemController {
         }
         this.#videoSystemView.categoryForm(done, name, del);
         if (done) this.#videoSystemView.bindNewCategory(this.handleCreateCategory);
-        
+
     }
 
     onClickPersonForm = () => {
-        this.#videoSystemView.personForm();
+        this.#videoSystemView.personForm(true, "", undefined);
+        this.#videoSystemView.bindNewPerson(this.handleCreatePerson);
+    }
+
+    handleCreatePerson = (type, name, del, born, dni, lastName, LastNameTwo) => {
+        let done;
+        if (type == "Actor") {
+            if (del) {
+                try {
+                    this.#videoSystemModel.removeActor(this.#videoSystemModel.getPersonByDNI(dni));
+                    done = true;
+                    this.onInit();
+                } catch (exception) {
+                    done = false;
+                }
+            } else {
+                try {
+                    console.log(name +" "+ dni + " "+lastName+" "+born+" "+LastNameTwo);
+                    let actor=this.#videoSystemModel.personFactory(name, dni,lastName,born,LastNameTwo);
+                    this.#videoSystemModel.addActor(actor);
+                    done = true;
+                    this.onInit();
+                } catch (exception) {
+                    done = false;
+                }
+            }
+        }else{
+            if (del) {
+                try {
+                    this.#videoSystemModel.removeDirector(this.#videoSystemModel.getPersonByDNI(dni));
+                    done = true;
+                    this.onInit();
+                } catch (exception) {
+                    done = false;
+                }
+            } else {
+                try {
+                    this.#videoSystemModel.addDirector(this.#videoSystemModel.PersonFactory(name, dni,lastName,born,LastNameTwo));
+                    done = true;
+                    this.onInit();
+                } catch (exception) {
+                    done = false;
+                }
+            }
+        }
+        this.#videoSystemView.personForm(done, name, del);
+        if (done) this.#videoSystemView.bindNewPerson(this.handleCreatePerson);
+
     }
 }
 

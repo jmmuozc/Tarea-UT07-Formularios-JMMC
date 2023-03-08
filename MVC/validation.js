@@ -47,7 +47,7 @@ function newCategoryValidation(handler) {
     if (!isValid) {
       firstInvalidElement.focus();
     } else {
-      handler(this.vfName.value, this.Description.value, this.Image.value, this.CheckDelete.checked);
+      handler(this.vfName.value, this.Description.value,this.CheckDelete.checked);
     }
     event.preventDefault();
     event.stopPropagation();
@@ -55,7 +55,7 @@ function newCategoryValidation(handler) {
 }
 
 function newPersonValidation(handler) {
-  let form = document.forms.fNewCategory;
+  let form = document.forms.fNewPerson;
   $(form).attr('novalidate', true);
   $(form).submit(function (event) {
     let isValid = true;
@@ -69,14 +69,39 @@ function newPersonValidation(handler) {
 
     if (!this.CheckDelete.checked) {
 
-      if (!this.Description.checkValidity()) {
+      if (!this.vfBorn.checkValidity()) {
         isValid = false;
-        showFeedBack($(this.Description), false);
-        firstInvalidElement = this.Description;
+        showFeedBack($(this.vfBorn), false);
+        firstInvalidElement = this.vfBorn;
       } else {
-        showFeedBack($(this.Description), true);
+        showFeedBack($(this.vfBorn), true);
       }
 
+      if (!this.DNI.checkValidity()) {
+        isValid = false;
+        showFeedBack($(this.DNI), false);
+        firstInvalidElement = this.DNI;
+      } else {
+        showFeedBack($(this.DNI), true);
+      }
+      
+      if (!this.LastName.checkValidity()) {
+        isValid = false;
+        showFeedBack($(this.LastName), false);
+        firstInvalidElement = this.LastName;
+      } else {
+        showFeedBack($(this.LastName), true);
+      }
+      
+      
+      if (!this.LastNameTwo.checkValidity()) {
+        isValid = false;
+        showFeedBack($(this.LastNameTwo), false);
+        firstInvalidElement = this.LastNameTwo;
+      } else {
+        showFeedBack($(this.LastNameTwo), true);
+      }
+      
       if (!this.Image.checkValidity()) {
         isValid = false;
         showFeedBack($(this.Image), false);
@@ -89,7 +114,7 @@ function newPersonValidation(handler) {
     if (!isValid) {
       firstInvalidElement.focus();
     } else {
-      handler(this.vfName.value, this.Description.value, this.Image.value, this.CheckDelete.checked);
+      handler(this.type.value,this.vfName.value, this.CheckDelete.checked,this.vfBorn.value, this.DNI.value, this.LastName.value,this.LastNameTwo.value);
     }
     event.preventDefault();
     event.stopPropagation();

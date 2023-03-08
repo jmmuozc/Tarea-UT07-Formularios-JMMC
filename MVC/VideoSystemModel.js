@@ -805,15 +805,15 @@ let videoSystem = (function () {
                 }
             }
 
-            getPersonByPicture(picture) {
+            getPersonByDNI(DNI) {
                 // Creamos un patron para la busqueda de findIndex
                 function compareActorElements(element) {
                     // Comprobamos que la categoria del array y del objeto introducido tenga el nombre igual
-                    return (element.actor.Picture === picture)
+                    return (element.actor.dni === DNI)
                 }
                 function compareDirectorElements(element) {
                     // Comprobamos que la categoria del array y del objeto introducido tenga el nombre igual
-                    return (element.director.Picture === picture)
+                    return (element.director.dni === DNI)
                 }
 
                 let position = this.#ActorList.findIndex(compareActorElements);
@@ -870,6 +870,7 @@ let videoSystem = (function () {
              * @returns Objeto person creado
              */
             personFactory(name, dni, lastname1, born, lastname2 = "Example", picture = "Base.jpg") {
+                console.log(name);
                 let createdPerson = new Person(name, dni, lastname1, born, lastname2, picture);
                 // Comprueba la posicion de la persona creada en la array de actores
                 let positionActor = this.#getActorPosition(createdPerson);

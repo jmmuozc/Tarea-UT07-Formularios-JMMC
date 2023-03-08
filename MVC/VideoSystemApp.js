@@ -27,7 +27,6 @@ const historyActions = {
 }
 
 window.addEventListener('popstate', function(event) {
-	console.log(event.state);
   if (event.state){
 		historyActions[event.state.action](event);
   }

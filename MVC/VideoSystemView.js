@@ -1,7 +1,7 @@
 "use strict";
 
 import Production from "../js/Production.js";
-import { newCategoryValidation } from "./validation.js";
+import { newCategoryValidation, newPersonValidation } from "./validation.js";
 
 class videoSystemView {
 
@@ -251,8 +251,8 @@ class videoSystemView {
             <img src='./media/personas/${person.Picture}' class="card-img-top" alt="${person.Picture}" width=250 height=250/>
             <div class="card-body">
             <h5 class="card-title"><p>${type}</p>${person.Name} ${person.FirstLastName}</h5>
-            <a href="#${type}card" class="btn btn-primary person-${type}" data-person='${person.Picture}'>Conocer</a>
-            <button class="btn btn-primary person-${type}-window" data-person='${person.Picture}'>Ventana</button>
+            <a href="#${type}card" class="btn btn-primary person-${type}" data-person='${person.dni}'>Conocer</a>
+            <button class="btn btn-primary person-${type}-window" data-person='${person.dni}'>Ventana</button>
             </div>
           </div>`
       personRow.appendChild(personColumn);
@@ -429,8 +429,8 @@ class videoSystemView {
             <img src='./media/personas/${actor.actor.Picture}' class="card-img-top" alt="${actor.actor.Picture}" width=200 height=200/>
             <div class="card-body">
               <h5 class="card-title"><p>Actor</p>${actor.actor.Name} ${actor.actor.FirstLastName}</h5>
-              <a href="#ActoresCard" class="btn btn-primary person-Actores" data-person='${actor.actor.Picture}'>Conocer</a>
-              <button class="btn btn-primary person-Actores-window" data-person='${actor.actor.Picture}'>Ventana</button>
+              <a href="#ActoresCard" class="btn btn-primary person-Actores" data-person='${actor.actor.dni}'>Conocer</a>
+              <button class="btn btn-primary person-Actores-window" data-person='${actor.actor.dni}'>Ventana</button>
             </div>
           </div>`
       CastRow.appendChild(actorsColumn);
@@ -442,8 +442,8 @@ class videoSystemView {
             <img src='./media/personas/${director.director.Picture}' class="card-img-top" alt="${director.director.Picture}" width=200 height=200/>
             <div class="card-body">
               <h5 class="card-title"><p>Director</p>${director.director.Name} ${director.FirstLastName}</h5>
-              <a href="#DirectoresCard" class="btn btn-primary person-Directores" data-person='${director.director.Picture}'>Conocer</a>
-              <button class="btn btn-primary person-Directores-window" data-person='${director.director.Picture}'>Ventana</button>
+              <a href="#DirectoresCard" class="btn btn-primary person-Directores" data-person='${director.director.dni}'>Conocer</a>
+              <button class="btn btn-primary person-Directores-window" data-person='${director.director.dni}'>Ventana</button>
             </div>
           </div>`
       CastRow.appendChild(directorsColumn);
@@ -542,7 +542,7 @@ class videoSystemView {
   //       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
   //     </div>
   //     <div class="modal-body" id="formModal">
-       
+
   //     </div>
   //     <div class="modal-footer">
   //       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -692,11 +692,14 @@ class videoSystemView {
 
   }
 
-  personForm() {
+  personForm(done, cat, del) {
+    let modal = document.getElementById("formModal");
+    if (document.getElementById("errorDiv")) modal.removeChild(document.getElementById("errorDiv"));
     let form = document.getElementById("formModal");
-    form.innerHTML = ` <div class="container" id="cValidation" >
+    if (done) {
+      form.innerHTML = ` <div class="container" id="cValidation" >
         <h1 class="display-5">Personas</h1>
-        <form name="fValidation" role="form" id="form-validation">
+        <form name="fNewPerson" role="form" id="form-validation">
           <!-- Requiered -->
           <div class="form-row">
           <div class="row">
@@ -779,6 +782,33 @@ class videoSystemView {
 
         </form>
       </div>`;
+      if (del) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> se ha eliminado con exito.</div>`;
+        form.appendChild(errorDiv);
+      } else if (del == false) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> se ha creado con exito.</div>`;
+        form.appendChild(errorDiv);
+      } else {
+
+      }
+    } else {
+      if (del) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> no existe.</div>`;
+        form.appendChild(errorDiv);
+      } else if (del == false) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> ya está creada.</div>`;
+        form.appendChild(errorDiv);
+      }
+
+    }
   }
 
   castingForm(productionList, actorList, directorList) {
@@ -861,7 +891,7 @@ class videoSystemView {
   }
 
   categoryForm(done, cat, del) {
- 
+
     let modal = document.getElementById("formModal");
     if (document.getElementById("errorDiv")) modal.removeChild(document.getElementById("errorDiv"));
     let form = document.getElementById("formModal");
@@ -918,13 +948,13 @@ class videoSystemView {
         errorDiv.setAttribute("Id", "errorDiv")
         errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> se ha eliminado con exito.</div>`;
         form.appendChild(errorDiv);
-      }else if (del==false) {
+      } else if (del == false) {
         let errorDiv = document.createElement("div");
         errorDiv.setAttribute("Id", "errorDiv")
         errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> se ha creado con exito.</div>`;
         form.appendChild(errorDiv);
       } else {
-        
+
       }
     } else {
       if (del) {
@@ -932,13 +962,13 @@ class videoSystemView {
         errorDiv.setAttribute("Id", "errorDiv")
         errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> no existe.</div>`;
         form.appendChild(errorDiv);
-      }else if (del==false) {
+      } else if (del == false) {
         let errorDiv = document.createElement("div");
         errorDiv.setAttribute("Id", "errorDiv")
         errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> ya está creada.</div>`;
         form.appendChild(errorDiv);
       }
-     
+
     }
 
   }
@@ -1172,12 +1202,19 @@ class videoSystemView {
   /**
    * Funcion que añade un evento a los elementos con la clase formPerson
    * @param {Function} handler 
-   */
+  */
   bindFormPerson(handler) {
     document.getElementById("FormPerson").addEventListener("click", (event) => {
       handler()
     });
 
+  }
+  /**
+   * Funcion que llama a la validacion de la nueva persona
+   * @param {Function} handler 
+   */
+  bindNewPerson(handler) {
+    newPersonValidation(handler);
   }
 
 
