@@ -870,7 +870,6 @@ let videoSystem = (function () {
              * @returns Objeto person creado
              */
             personFactory(name, dni, lastname1, born, lastname2 = "Example", picture = "Base.jpg") {
-                console.log(name);
                 let createdPerson = new Person(name, dni, lastname1, born, lastname2, picture);
                 // Comprueba la posicion de la persona creada en la array de actores
                 let positionActor = this.#getActorPosition(createdPerson);

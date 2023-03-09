@@ -692,7 +692,7 @@ class videoSystemView {
 
   }
 
-  personForm(done, cat, del) {
+  personForm(done, person, del) {
     let modal = document.getElementById("formModal");
     if (document.getElementById("errorDiv")) modal.removeChild(document.getElementById("errorDiv"));
     let form = document.getElementById("formModal");
@@ -785,12 +785,12 @@ class videoSystemView {
       if (del) {
         let errorDiv = document.createElement("div");
         errorDiv.setAttribute("Id", "errorDiv")
-        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> se ha eliminado con exito.</div>`;
+        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La persona <strong>${person}</strong> se ha eliminado con exito.</div>`;
         form.appendChild(errorDiv);
       } else if (del == false) {
         let errorDiv = document.createElement("div");
         errorDiv.setAttribute("Id", "errorDiv")
-        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> se ha creado con exito.</div>`;
+        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La persona <strong>${person}</strong> se ha creado con exito.</div>`;
         form.appendChild(errorDiv);
       } else {
 
@@ -799,12 +799,12 @@ class videoSystemView {
       if (del) {
         let errorDiv = document.createElement("div");
         errorDiv.setAttribute("Id", "errorDiv")
-        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> no existe.</div>`;
+        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La persona <strong>${person}</strong> no existe.</div>`;
         form.appendChild(errorDiv);
       } else if (del == false) {
         let errorDiv = document.createElement("div");
         errorDiv.setAttribute("Id", "errorDiv")
-        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La categoría <strong>${cat}</strong> ya está creada.</div>`;
+        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La persona <strong>${person}</strong> ya está creada.</div>`;
         form.appendChild(errorDiv);
       }
 

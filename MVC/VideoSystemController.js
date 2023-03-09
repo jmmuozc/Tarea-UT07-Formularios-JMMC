@@ -260,7 +260,6 @@ class videoSystemController {
     }
 
     handleDirectorCard = (dni) => {
-        console.log(dni);
         this.onClickDirectorCard(dni);
         this.#videoSystemView.bindProductionCard(this.HandleProduction);
         this.#videoSystemView.bindProductionCardWindow(this.HandleProductionWindow);
@@ -439,16 +438,18 @@ class videoSystemController {
                 }
             } else {
                 try {
-                    console.log(name +" "+ dni + " "+lastName+" "+born+" "+LastNameTwo);
-                    let actor=this.#videoSystemModel.personFactory(name, dni,lastName,born,LastNameTwo);
-                    this.#videoSystemModel.addActor(actor);
+                    if (this.#videoSystemModel.getPersonByDNI(dni)) {
+                        this.#videoSystemModel.addActor(this.#videoSystemModel.getPersonByDNI(dni));
+                    } else {
+                        this.#videoSystemModel.addActor(this.#videoSystemModel.personFactory(name, dni, lastName, born, LastNameTwo));
+                    }
                     done = true;
                     this.onInit();
                 } catch (exception) {
                     done = false;
                 }
             }
-        }else{
+        } else {
             if (del) {
                 try {
                     this.#videoSystemModel.removeDirector(this.#videoSystemModel.getPersonByDNI(dni));
@@ -459,7 +460,11 @@ class videoSystemController {
                 }
             } else {
                 try {
-                    this.#videoSystemModel.addDirector(this.#videoSystemModel.PersonFactory(name, dni,lastName,born,LastNameTwo));
+                    if (this.#videoSystemModel.getPersonByDNI(dni)) {
+                        this.#videoSystemModel.addDirector(this.#videoSystemModel.getPersonByDNI(dni));
+                    } else {
+                        this.#videoSystemModel.addDirector(this.#videoSystemModel.PersonFactory(name, dni, lastName, born, LastNameTwo));
+                    }
                     done = true;
                     this.onInit();
                 } catch (exception) {

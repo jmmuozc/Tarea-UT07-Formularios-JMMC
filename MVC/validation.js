@@ -114,11 +114,17 @@ function newPersonValidation(handler) {
     if (!isValid) {
       firstInvalidElement.focus();
     } else {
-      handler(this.type.value,this.vfName.value, this.CheckDelete.checked,this.vfBorn.value, this.DNI.value, this.LastName.value,this.LastNameTwo.value);
+      handler(this.type.value,this.vfName.value, this.CheckDelete.checked,fixInputDate(this.vfBorn.value), this.DNI.value, this.LastName.value,this.LastNameTwo.value);
     }
     event.preventDefault();
     event.stopPropagation();
   });
 }
 
+function fixInputDate(date) {
+  date=date.split("-");
+  date=date.reverse();
+  return date.join("/");
+  
+}
 export { newCategoryValidation,newPersonValidation }
