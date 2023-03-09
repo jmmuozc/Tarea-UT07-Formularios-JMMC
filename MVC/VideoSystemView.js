@@ -868,7 +868,7 @@ class videoSystemView {
     let dinamicDirectors = document.getElementById("directorSelect");
     for (let director of directorList) {
       let option = document.createElement("option");
-      option.setAttribute("value", director.Picture);
+      option.setAttribute("value", director.dni);
       option.innerText = `${director.Name} ${director.FirstLastName}`;
       dinamicDirectors.appendChild(option);
     }
@@ -876,7 +876,7 @@ class videoSystemView {
     let dinamicActors = document.getElementById("actorSelect");
     for (let actor of actorList) {
       let option = document.createElement("option");
-      option.setAttribute("value", actor.Picture);
+      option.setAttribute("value", actor.dni);
       option.innerText = `${actor.Name} ${actor.FirstLastName}`;
       dinamicActors.appendChild(option);
     }
