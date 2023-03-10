@@ -1,7 +1,7 @@
 "use strict";
 
 import Production from "../js/Production.js";
-import { newCategoryValidation, newPersonValidation } from "./validation.js";
+import { newCategoryValidation, newPersonValidation, newProductionValidation } from "./validation.js";
 
 class videoSystemView {
 
@@ -377,7 +377,7 @@ class videoSystemView {
       productionsRow.appendChild(productionsColumn);
     }
 
-    this.windows.set(person.Picture, window);
+    this.windows.set(person.dni, window);
   }
 
   /**
@@ -553,11 +553,14 @@ class videoSystemView {
   // }
 
 
-  productionForm(categoryList, actorList, directorList) {
+  productionForm(categoryList, actorList, directorList, done, title, del) {
+    let modal = document.getElementById("formModal");
+    if (document.getElementById("errorDiv")) modal.removeChild(document.getElementById("errorDiv"));
     let form = document.getElementById("formModal");
-    form.innerHTML = ` <div class="container" id="cValidation" >
+    if (done) {
+      form.innerHTML = ` <div class="container" id="cValidation" >
         <h1 class="display-5">Producciones</h1>
-        <form name="fValidation" role="form" id="form-validation">
+        <form name="fNewProduction" role="form" id="form-validation">
           <!-- Requiered -->
           <div class="form-row">
           <div class="row">
@@ -635,10 +638,10 @@ class videoSystemView {
         </form>
       </div>`;
 
-    let dinamicHolder = document.getElementById("dinamicHolder");
-    let dinamicContents = document.createElement("div");
-    dinamicContents.classList.add("row");
-    dinamicContents.innerHTML = `<div class="col-md-4 mb-3 w-50">
+      let dinamicHolder = document.getElementById("dinamicHolder");
+      let dinamicContents = document.createElement("div");
+      dinamicContents.classList.add("row");
+      dinamicContents.innerHTML = `<div class="col-md-4 mb-3 w-50">
         <label for="Director">Directores</label>
         <div class="input-group">
         <select class="form-select" multiple aria-label="multiple select example" id="directorSelect">
@@ -664,30 +667,57 @@ class videoSystemView {
         </div>
         `;
 
-    dinamicHolder.appendChild(dinamicContents);
+      dinamicHolder.appendChild(dinamicContents);
 
-    let dinamicDirectors = document.getElementById("directorSelect");
-    for (let director of directorList) {
-      let option = document.createElement("option");
-      option.setAttribute("value", director.Picture);
-      option.innerText = `${director.Name} ${director.FirstLastName}`;
-      dinamicDirectors.appendChild(option);
-    }
+      let dinamicDirectors = document.getElementById("directorSelect");
+      for (let director of directorList) {
+        let option = document.createElement("option");
+        option.setAttribute("value", director.dni);
+        option.innerText = `${director.Name} ${director.FirstLastName}`;
+        dinamicDirectors.appendChild(option);
+      }
 
-    let dinamicActors = document.getElementById("actorSelect");
-    for (let actor of actorList) {
-      let option = document.createElement("option");
-      option.setAttribute("value", actor.Picture);
-      option.innerText = `${actor.Name} ${actor.FirstLastName}`;
-      dinamicActors.appendChild(option);
-    }
+      let dinamicActors = document.getElementById("actorSelect");
+      for (let actor of actorList) {
+        let option = document.createElement("option");
+        option.setAttribute("value", actor.dni);
+        option.innerText = `${actor.Name} ${actor.FirstLastName}`;
+        dinamicActors.appendChild(option);
+      }
 
-    let dinamicCategory = document.getElementById("categorySelect");
-    for (let category of categoryList) {
-      let option = document.createElement("option");
-      option.setAttribute("value", category.Name);
-      option.innerText = `${category.Name}`;
-      dinamicCategory.appendChild(option);
+      let dinamicCategory = document.getElementById("categorySelect");
+      for (let category of categoryList) {
+        let option = document.createElement("option");
+        option.setAttribute("value", category.Name);
+        option.innerText = `${category.Name}`;
+        dinamicCategory.appendChild(option);
+      }
+      if (del) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La produccion <strong>${title}</strong> se ha eliminado con exito.</div>`;
+        form.appendChild(errorDiv);
+      } else if (del == false) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-info p-3"><i class="fas fa-exclamation-triangle"></i> La produccion <strong>${title}</strong> se ha creado con exito.</div>`;
+        form.appendChild(errorDiv);
+      } else {
+
+      }
+    } else {
+      if (del) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La produccion <strong>${title}</strong> no existe.</div>`;
+        form.appendChild(errorDiv);
+      } else if (del == false) {
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("Id", "errorDiv")
+        errorDiv.innerHTML = `<div class="error text-danger p-3"><i class="fas fa-exclamation-triangle"></i> La produccion <strong>${title}</strong> ya está creada.</div>`;
+        form.appendChild(errorDiv);
+      }
+
     }
 
   }
@@ -1168,6 +1198,14 @@ class videoSystemView {
       handler()
     });
 
+  }
+
+  /**
+ * Funcion que llama a la validacion de la nueva Production
+ * @param {Function} handler 
+ */
+  bindNewProduction(handler) {
+    newProductionValidation(handler);
   }
 
   /**

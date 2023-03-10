@@ -383,7 +383,8 @@ class videoSystemController {
     }
 
     onClickProductionForm = () => {
-        this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors);
+        this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors,true, "", undefined);
+        this.#videoSystemView.bindNewProduction(this.handleCreateProduction);
     }
 
     onClickCastingForm = () => {
@@ -474,6 +475,52 @@ class videoSystemController {
         }
         this.#videoSystemView.personForm(done, name, del);
         if (done) this.#videoSystemView.bindNewPerson(this.handleCreatePerson);
+
+    }
+
+    handleCreateProduction = (type, title,del,date, nat, syn) => {
+        let done;
+        if (type == "Serie") {
+            if (del) {
+                try {
+                    this.#videoSystemModel.removeProductions(this.#videoSystemModel.getProductionByTitle(title));
+                    done = true;
+                    this.onInit();
+                } catch (exception) {
+                    done = false;
+                }
+            } else {
+                try {
+                    
+                    this.#videoSystemModel.addProductions(this.#videoSystemModel.serieFactory(title, date, nat, syn));
+
+                    done = true;
+                    this.onInit();
+                } catch (exception) {
+                    done = false;
+                }
+            }
+        } else {
+            if (del) {
+                try {
+                    this.#videoSystemModel.removeProductions(this.#videoSystemModel.getProductionByTitle(title));
+                    done = true;
+                    this.onInit();
+                } catch (exception) {
+                    done = false;
+                }
+            } else {
+                try {
+                    this.#videoSystemModel.addProductions(this.#videoSystemModel.movieFactory(title, date, nat, syn));
+                    done = true;
+                    this.onInit();
+                } catch (exception) {
+                    done = false;
+                }
+            }
+        }
+        this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors, done, title, del);
+        if (done) this.#videoSystemView.bindNewProduction(this.handleCreateProduction);
 
     }
 }

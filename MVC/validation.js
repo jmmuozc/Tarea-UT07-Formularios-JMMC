@@ -120,6 +120,56 @@ function newPersonValidation(handler) {
     event.stopPropagation();
   });
 }
+function newProductionValidation(handler) {
+  let form = document.forms.fNewProduction;
+  $(form).attr('novalidate', true);
+  $(form).submit(function (event) {
+    let isValid = true;
+    let firstInvalidElement = null;
+    this.vfTitle.value = this.vfTitle.value.trim();
+    if (this.vfTitle.value == "") {
+      showFeedBack($(this.vfTitle), false);
+    } else {
+      showFeedBack($(this.vfTitle), true);
+    }
+
+    if (!this.CheckDelete.checked) {
+
+      if (!this.vfPublication.checkValidity()) {
+        isValid = false;
+        showFeedBack($(this.vfPublication), false);
+        firstInvalidElement = this.vfPublication;
+      } else {
+        showFeedBack($(this.vfPublication), true);
+      }
+
+      if (!this.Nationality.checkValidity()) {
+        isValid = false;
+        showFeedBack($(this.Nationality), false);
+        firstInvalidElement = this.Nationality;
+      } else {
+        showFeedBack($(this.Nationality), true);
+      }
+      
+      if (!this.Synopsis.checkValidity()) {
+        isValid = false;
+        showFeedBack($(this.Synopsis), false);
+        firstInvalidElement = this.Synopsis;
+      } else {
+        showFeedBack($(this.Synopsis), true);
+      }
+
+    }
+    console.log(this.directorSelect.value);
+    if (!isValid) {
+      firstInvalidElement.focus();
+    } else {
+      handler(this.type.value,this.vfTitle.value, this.CheckDelete.checked ,fixInputDate(this.vfPublication.value), this.Nationality.value, this.Synopsis.value);
+    }
+    event.preventDefault();
+    event.stopPropagation();
+  });
+}
 
 function fixInputDate(date) {
   date=date.split("-");
@@ -127,4 +177,4 @@ function fixInputDate(date) {
   return date.join("/");
   
 }
-export { newCategoryValidation,newPersonValidation }
+export { newCategoryValidation,newPersonValidation,newProductionValidation }
