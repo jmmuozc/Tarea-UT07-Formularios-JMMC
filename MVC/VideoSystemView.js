@@ -441,7 +441,7 @@ class videoSystemView {
       directorsColumn.innerHTML = `<div class="card mx-auto" style="width: 18rem;  margin-top:2rem;">
             <img src='./media/personas/${director.director.Picture}' class="card-img-top" alt="${director.director.Picture}" width=200 height=200/>
             <div class="card-body">
-              <h5 class="card-title"><p>Director</p>${director.director.Name} ${director.FirstLastName}</h5>
+              <h5 class="card-title"><p>Director</p>${director.director.Name} ${director.director.FirstLastName}</h5>
               <a href="#DirectoresCard" class="btn btn-primary person-Directores" data-person='${director.director.dni}'>Conocer</a>
               <button class="btn btn-primary person-Directores-window" data-person='${director.director.dni}'>Ventana</button>
             </div>
@@ -634,7 +634,7 @@ class videoSystemView {
           </div>
           </div>
           </div>
-          <button type="submit" class="btn btn-primary">Crear</button>
+          <button type="submit" class="btn btn-primary">Ejecutar</button>
         </form>
       </div>`;
 
@@ -808,7 +808,7 @@ class videoSystemView {
               </div>
           </div>
           </div>
-          <button type="submit" class="btn btn-primary">Crear</button>
+          <button type="submit" class="btn btn-primary">Ejecutar</button>
 
         </form>
       </div>`;
@@ -889,7 +889,7 @@ class videoSystemView {
         </div>
         </div>
         <div class="col-md-4 mb-3">
-        <button type="submit" class="btn btn-primary">Crear</button>
+        <button type="submit" class="btn btn-primary">Ejecutar</button>
         </div>
         `;
 
@@ -969,7 +969,7 @@ class videoSystemView {
               </div>
           </div>
           </div>
-          <button type="submit" class="btn btn-primary">Crear</button>
+          <button type="submit" class="btn btn-primary">Ejecutar</button>
             </div>
             </form>
             </div>`;

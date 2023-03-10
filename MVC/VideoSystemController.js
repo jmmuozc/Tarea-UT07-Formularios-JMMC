@@ -478,8 +478,12 @@ class videoSystemController {
 
     }
 
-    handleCreateProduction = (type, title,del,date, nat, syn) => {
+    handleCreateProduction = (type, title,del,date, nat, syn,directors,actors,categories) => {
         let done;
+        let production;
+        console.log(directors);
+        console.log(actors);
+        console.log(categories);
         if (type == "Serie") {
             if (del) {
                 try {
@@ -491,8 +495,20 @@ class videoSystemController {
                 }
             } else {
                 try {
-                    
-                    this.#videoSystemModel.addProductions(this.#videoSystemModel.serieFactory(title, date, nat, syn));
+                    production=this.#videoSystemModel.serieFactory(title, date, nat, syn);
+                    this.#videoSystemModel.addProductions(production);
+
+                    directors.forEach(element => {
+                        this.#videoSystemModel.assignDirector(this.#videoSystemModel.getPersonByDNI(element),production);
+                    });
+
+                    actors.forEach(element => {
+                        this.#videoSystemModel.assignActor(this.#videoSystemModel.getPersonByDNI(element),production);
+                    });
+
+                    categories.forEach(element => {
+                        this.#videoSystemModel.assignCategory(this.#videoSystemModel.getCategoryByName(element),production);
+                    });
 
                     done = true;
                     this.onInit();
@@ -511,7 +527,21 @@ class videoSystemController {
                 }
             } else {
                 try {
-                    this.#videoSystemModel.addProductions(this.#videoSystemModel.movieFactory(title, date, nat, syn));
+                    production=this.#videoSystemModel.movieFactory(title, date, nat, syn);
+                    this.#videoSystemModel.addProductions(production);
+
+                    directors.forEach(element => {
+                        this.#videoSystemModel.assignDirector(this.#videoSystemModel.getPersonByDNI(element),production);
+                    });
+
+                    actors.forEach(element => {
+                        this.#videoSystemModel.assignActor(this.#videoSystemModel.getPersonByDNI(element),production);
+                    });
+
+                    categories.forEach(element => {
+                        this.#videoSystemModel.assignCategory(this.#videoSystemModel.getCategoryByName(element),production);
+                    });
+
                     done = true;
                     this.onInit();
                 } catch (exception) {

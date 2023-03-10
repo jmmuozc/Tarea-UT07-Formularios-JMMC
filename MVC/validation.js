@@ -160,15 +160,24 @@ function newProductionValidation(handler) {
       }
 
     }
-    console.log(this.directorSelect.value);
     if (!isValid) {
       firstInvalidElement.focus();
     } else {
-      handler(this.type.value,this.vfTitle.value, this.CheckDelete.checked ,fixInputDate(this.vfPublication.value), this.Nationality.value, this.Synopsis.value);
+      handler(this.type.value,this.vfTitle.value, this.CheckDelete.checked ,fixInputDate(this.vfPublication.value), this.Nationality.value, this.Synopsis.value,selectedParameters(this.directorSelect),selectedParameters(this.actorSelect),selectedParameters(this.categorySelect));
     }
     event.preventDefault();
     event.stopPropagation();
   });
+}
+
+function selectedParameters(MultiSelect) {
+  let valueList=[];
+  for (let select of MultiSelect) {
+    if (select.selected) {
+      valueList.push(select.value);
+    }
+  }
+  return valueList;
 }
 
 function fixInputDate(date) {
