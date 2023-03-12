@@ -383,12 +383,13 @@ class videoSystemController {
     }
 
     onClickProductionForm = () => {
-        this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors,true, "", undefined);
+        this.#videoSystemView.productionForm(this.#videoSystemModel.CategoriesList, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors, true, "", undefined);
         this.#videoSystemView.bindNewProduction(this.handleCreateProduction);
     }
 
     onClickCastingForm = () => {
-        this.#videoSystemView.castingForm(this.#videoSystemModel.Productions, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors);
+        this.#videoSystemView.castingForm(this.#videoSystemModel.Productions, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors, true, "", undefined,"", undefined,"", undefined);
+        this.#videoSystemView.bindChangeCasting(this.handleChangeCasting);
     }
 
     onClickCategoryForm = () => {
@@ -478,12 +479,9 @@ class videoSystemController {
 
     }
 
-    handleCreateProduction = (type, title,del,date, nat, syn,directors,actors,categories) => {
+    handleCreateProduction = (type, title, del, date, nat, syn, directors, actors, categories) => {
         let done;
         let production;
-        console.log(directors);
-        console.log(actors);
-        console.log(categories);
         if (type == "Serie") {
             if (del) {
                 try {
@@ -495,19 +493,19 @@ class videoSystemController {
                 }
             } else {
                 try {
-                    production=this.#videoSystemModel.serieFactory(title, date, nat, syn);
+                    production = this.#videoSystemModel.serieFactory(title, date, nat, syn);
                     this.#videoSystemModel.addProductions(production);
 
                     directors.forEach(element => {
-                        this.#videoSystemModel.assignDirector(this.#videoSystemModel.getPersonByDNI(element),production);
+                        this.#videoSystemModel.assignDirector(this.#videoSystemModel.getPersonByDNI(element), production);
                     });
 
                     actors.forEach(element => {
-                        this.#videoSystemModel.assignActor(this.#videoSystemModel.getPersonByDNI(element),production);
+                        this.#videoSystemModel.assignActor(this.#videoSystemModel.getPersonByDNI(element), production);
                     });
 
                     categories.forEach(element => {
-                        this.#videoSystemModel.assignCategory(this.#videoSystemModel.getCategoryByName(element),production);
+                        this.#videoSystemModel.assignCategory(this.#videoSystemModel.getCategoryByName(element), production);
                     });
 
                     done = true;
@@ -527,19 +525,19 @@ class videoSystemController {
                 }
             } else {
                 try {
-                    production=this.#videoSystemModel.movieFactory(title, date, nat, syn);
+                    production = this.#videoSystemModel.movieFactory(title, date, nat, syn);
                     this.#videoSystemModel.addProductions(production);
 
                     directors.forEach(element => {
-                        this.#videoSystemModel.assignDirector(this.#videoSystemModel.getPersonByDNI(element),production);
+                        this.#videoSystemModel.assignDirector(this.#videoSystemModel.getPersonByDNI(element), production);
                     });
 
                     actors.forEach(element => {
-                        this.#videoSystemModel.assignActor(this.#videoSystemModel.getPersonByDNI(element),production);
+                        this.#videoSystemModel.assignActor(this.#videoSystemModel.getPersonByDNI(element), production);
                     });
 
                     categories.forEach(element => {
-                        this.#videoSystemModel.assignCategory(this.#videoSystemModel.getCategoryByName(element),production);
+                        this.#videoSystemModel.assignCategory(this.#videoSystemModel.getCategoryByName(element), production);
                     });
 
                     done = true;
@@ -553,6 +551,79 @@ class videoSystemController {
         if (done) this.#videoSystemView.bindNewProduction(this.handleCreateProduction);
 
     }
+
+    handleChangeCasting = (prod, actor, direct, des) => {
+        let done;
+        let doneActor;
+        let doneDirect;
+        let production;
+        let actorUsed;
+        let directorUsed;
+        production = this.#videoSystemModel.getProductionByTitle(prod);
+        actorUsed = this.#videoSystemModel.getPersonByDNI(actor);
+        directorUsed = this.#videoSystemModel.getPersonByDNI(direct);
+        if (actor != "") {
+            actor = actorUsed.Name;
+        }
+        if (direct != "") {
+            direct = directorUsed.Name;
+        }
+        if (des) {
+            try {
+                if (actor != "") {
+                    this.#videoSystemModel.deassignActor(actorUsed, production);                   
+                    doneActor=true;
+                }
+                done = true;
+                this.onInit();
+            } catch (exception) {
+                done = false;
+                doneActor=false;
+            }
+            try {
+                if (direct != "") {
+                    this.#videoSystemModel.deassignDirector(directorUsed, production);                
+                    doneDirect= true;
+                }
+                if (done!=false) {
+                    done = true;
+                }
+                this.onInit();
+            } catch (exception) {
+                done = false;
+                doneDirect= false;
+            }
+        } else {
+            try {
+                if (actor != "") {
+                    this.#videoSystemModel.assignActor(actorUsed, production);                   
+                    doneActor=true;
+                }
+
+                done = true;
+                this.onInit();
+            } catch (exception) {
+                done = false;
+                doneActor=false;
+            }
+            try {
+                if (direct != "") {
+                    this.#videoSystemModel.assignDirector(directorUsed, production);                
+                    doneDirect= true;
+                }
+                if (done!=false) {
+                    done = true;
+                }
+                this.onInit();
+            } catch (exception) {
+                done = false;
+                doneDirect= false;
+            }
+        }
+        this.#videoSystemView.castingForm(this.#videoSystemModel.Productions, this.#videoSystemModel.Actors, this.#videoSystemModel.Directors, done, actor, doneActor,direct, doneDirect, prod, des);
+        if (done) this.#videoSystemView.bindChangeCasting(this.handleChangeCasting);
+
+    }
 }
 
-export default videoSystemController;
+export default videoSystemController

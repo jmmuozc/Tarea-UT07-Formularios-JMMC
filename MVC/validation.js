@@ -170,6 +170,23 @@ function newProductionValidation(handler) {
   });
 }
 
+function changeCasting(handler) {
+  let form = document.forms.fChangeCasting;
+  $(form).attr('fChangeCasting', true);
+  $(form).submit(function (event) {
+    let isValid = true;
+    let firstInvalidElement = null;
+   
+    if (!isValid) {
+      firstInvalidElement.focus();
+    } else {
+      handler(this.productionSelect.value, this.actorSelect.value,this.directorSelect.value,this.CheckUnassign.checked);
+    }
+    event.preventDefault();
+    event.stopPropagation();
+  });
+}
+
 function selectedParameters(MultiSelect) {
   let valueList=[];
   for (let select of MultiSelect) {
@@ -186,4 +203,4 @@ function fixInputDate(date) {
   return date.join("/");
   
 }
-export { newCategoryValidation,newPersonValidation,newProductionValidation }
+export { newCategoryValidation,newPersonValidation,newProductionValidation,changeCasting}
